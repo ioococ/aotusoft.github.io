@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"right","width":320,"display":"post","padding":18,"offset":40},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="这篇是 JavaScript 从入门到放弃的第二节，JavaScript 并不是面向对象而是基于对象。JavaScript 有许多与面向对象的相似之处，例如封装和继承。有Java基础后再看 JavaScript，发现这语言真灵活~~（语法稀烂）~~">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript 从入门到放弃：基于对象">
+<meta property="og:url" content="http://example.com/2023/11/22/JavaScript-II/index.html">
+<meta property="og:site_name" content="Hi, Onei">
+<meta property="og:description" content="这篇是 JavaScript 从入门到放弃的第二节，JavaScript 并不是面向对象而是基于对象。JavaScript 有许多与面向对象的相似之处，例如封装和继承。有Java基础后再看 JavaScript，发现这语言真灵活~~（语法稀烂）~~">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/images/img.png">
+<meta property="og:image" content="http://example.com/images/img_1.png">
+<meta property="article:published_time" content="2023-11-22T06:00:00.000Z">
+<meta property="article:modified_time" content="2023-11-22T10:03:06.542Z">
+<meta property="article:author" content="Onei">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/img.png">
+
+<link rel="canonical" href="http://example.com/2023/11/22/JavaScript-II/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>JavaScript 从入门到放弃：基于对象 | Hi, Onei</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hi, Onei</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/22/JavaScript-II/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Onei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hi, Onei">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JavaScript 从入门到放弃：基于对象
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-11-22 14:00:00 / 修改时间：18:03:06" itemprop="dateCreated datePublished" datetime="2023-11-22T14:00:00+08:00">2023-11-22</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/WEB%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">WEB开发</span></a>
+                </span>
+            </span>
+
+          
+            <div class="post-description">这篇是 JavaScript 从入门到放弃的第二节，JavaScript 并不是面向对象而是基于对象。JavaScript 有许多与面向对象的相似之处，例如封装和继承。有Java基础后再看 JavaScript，发现这语言真灵活~~（语法稀烂）~~</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="基于对象"><a href="#基于对象" class="headerlink" title="基于对象"></a>基于对象</h1><p><img src="/images/img.png" alt="img.png" title="面向对象"></p>
+<p><strong>Everything is object.</strong></p>
+<h1 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h1><p>对象是一个容器 封装了<strong>属性(property)<strong>和</strong>方法(method)</strong><br>对象可理解为数据集  无序属性的集合</p>
+<h1 id="面向对象"><a href="#面向对象" class="headerlink" title="面向对象"></a>面向对象</h1><p>将真实世界复杂关系抽象为一个个对象 然后由对象之间的分工与合作 完成对真实世界的模拟</p>
+<h2 id="秒懂"><a href="#秒懂" class="headerlink" title="秒懂"></a>秒懂</h2><p><img src="/images/img_1.png" alt="img_1.png" title="面向对象秒懂"></p>
+<h2 id="特征"><a href="#特征" class="headerlink" title="特征"></a>特征</h2><ul>
+<li>封装</li>
+<li>继承</li>
+<li>多态</li>
+</ul>
+<h2 id="创建对象"><a href="#创建对象" class="headerlink" title="创建对象"></a>创建对象</h2><ul>
+<li>字面量创建</li>
+<li><code>new Object()</code> 创建</li>
+<li>工厂模式<ul>
+<li><code>function www(xxx,yyy,zzz)&#123;&#125;</code> 创建</li>
+</ul>
+</li>
+<li>构造函数<ul>
+<li>function Xxx(){}</li>
+</ul>
+</li>
+</ul>
+<p>实例化对象有默认的 <code>constructor</code> 属性 指向构造函数</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> fn1 = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(fn1.<span class="property">constructor</span>) <span class="comment">//f Function( )</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> fn2 = <span class="keyword">new</span> <span class="title class_">Function</span>(<span class="string">&#x27;num1&#x27;</span>, <span class="string">&#x27;num2&#x27;</span>, <span class="string">&quot;return num1+num2&quot;</span>)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">fn2</span>(<span class="number">10</span>, <span class="number">20</span>)) <span class="comment">//30</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="判断"><a href="#判断" class="headerlink" title="判断"></a>判断</h2><p><code>instanceof</code></p>
+<h2 id="内存"><a href="#内存" class="headerlink" title="内存"></a>内存</h2><h3 id="内存分配"><a href="#内存分配" class="headerlink" title="内存分配"></a>内存分配</h3><p>变量定义 函数声明</p>
+<h3 id="内存使用"><a href="#内存使用" class="headerlink" title="内存使用"></a>内存使用</h3><p>变量运算 操作 函数调用</p>
+<h3 id="内存销毁"><a href="#内存销毁" class="headerlink" title="内存销毁"></a>内存销毁</h3><p>浏览器关闭 函数调用完成<br>JavaScript 拥有自主销毁内存的机制</p>
+<h1 id="原型"><a href="#原型" class="headerlink" title="原型"></a>原型</h1><h2 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h2><ul>
+<li>节省内存空间</li>
+<li>实现数据共享(继承)</li>
+</ul>
+<h2 id="构造函数-实例对象-原型直接关系"><a href="#构造函数-实例对象-原型直接关系" class="headerlink" title="构造函数 实例对象 原型直接关系"></a>构造函数 实例对象 原型直接关系</h2><ul>
+<li>函数有 <code>prototype</code> 原型默认属性<ul>
+<li><code>prototype</code> 本身为对象</li>
+</ul>
+</li>
+<li>构造函数 <code>prototype</code> 上的属性和方法可被实例化对象继承</li>
+<li>对象有 <code>constructor</code> 属性，实例化对象的 <code>constructor</code> 属性指向构造函数</li>
+<li><code>prototype</code> 也存在 <code>constructor</code> 属性  <code>constructor</code> 指向构造函数<ul>
+<li><code>Xxx.prototype.constructor === Xxx</code></li>
+</ul>
+</li>
+<li>对象有 <code>__proto__</code> 属性，实例化对象的 <code>constructor</code> 属性指向构造函数<ul>
+<li><code>Xxx.__proto__ === Xxx.prototype</code></li>
+</ul>
+</li>
+</ul>
+<p>将公共的属性和方法挂载到原型上</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">Person</span>(<span class="params">name</span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">name</span> = name;</span><br><span class="line">    <span class="comment">// this.age = age;</span></span><br><span class="line">    <span class="comment">// this.sex = sex;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title class_">Person</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">age</span> = <span class="string">&quot;xxx&quot;</span>;</span><br><span class="line"><span class="title class_">Person</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">sex</span> = <span class="string">&quot;yyy&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&quot;aaa&quot;</span>);</span><br><span class="line"><span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&quot;bbb&quot;</span>);</span><br></pre></td></tr></table></figure>
+<p>基于原型拷贝</p>
+<h2 id="Prototype和-proto-关系"><a href="#Prototype和-proto-关系" class="headerlink" title="Prototype和__proto__关系"></a>Prototype和__proto__关系</h2><h3 id="prototype-属性"><a href="#prototype-属性" class="headerlink" title="prototype 属性"></a>prototype 属性</h3><ul>
+<li>prototype 是函数对象特有的属性，它指向一个对象，这个对象就是实例化该构造函数后的对象的原型。</li>
+<li>当使用 new 关键字创建一个对象实例时，该对象的 <code>__proto__</code> 属性就会指向构造函数的 prototype 属性。</li>
+</ul>
+<h2 id="proto-属性："><a href="#proto-属性：" class="headerlink" title="__proto__ 属性："></a><code>__proto__</code> 属性：</h2><p><code>__proto__</code> 是每个对象（包括函数对象）都具有的属性，它指向该对象的原型。<br>在现代 JavaScript 中，推荐使用 <code>Object.getPrototypeOf()</code> 方法或者 <code>Object.setPrototypeOf()</code> 方法来访问或设置对象的原型，而不是直接使用 <code>__proto__</code>。</p>
+<p>虽然 prototype 和 <code>__proto__</code> 都涉及原型链，但它们用途不同，一个是函数特有的，用于指定构造函数的原型，而另一个是每个对象实例都具有的，用于指向该对象的原型。在现代 JavaScript 中，更推荐使用 <code>Object.getPrototypeOf()</code> 和 <code>Object.setPrototypeOf()</code> 来操作原型链，而不是直接操作 <code>__proto__</code>。</p>
+<h1 id="原型链"><a href="#原型链" class="headerlink" title="原型链"></a>原型链</h1><p><code>__proto__</code> 用于访问对象的原型，是 JavaScript 中的一个非标准属性</p>
+<h2 id="查找规则"><a href="#查找规则" class="headerlink" title="查找规则"></a>查找规则</h2><p>对象 -&gt; 原型对象1 -&gt; 原型对象2 -&gt; … -&gt; Object.prototype -&gt; null</p>
+<ul>
+<li><strong>对象：</strong>JavaScript 中的对象实例，拥有自己的属性和方法。</li>
+<li><strong>原型对象1、原型对象2、…：</strong>对象的原型链上的对象，通过 <code>__proto__</code> 属性或 <code>Object.create()</code> 方法连接起来。每个对象都有一个指向其原型的引用。</li>
+<li><strong>Object.prototype：</strong>所有对象的最终原型，即 Object.prototype。这是原型链的顶端，包含一些通用的属性和方法，如 toString()。</li>
+<li><strong>null：</strong>原型链的终点。当对象在原型链中找不到属性或方法时，查找会一直向上进行，直到达到 Object.prototype，最终到达 null，这意味着没有更多的原型可查找。</li>
+</ul>
+<p><strong>最终指向 <code>null</code></strong></p>
+<h2 id="改变this指向"><a href="#改变this指向" class="headerlink" title="改变this指向"></a>改变this指向</h2><h3 id="call"><a href="#call" class="headerlink" title="call()"></a>call()</h3><ul>
+<li>进行函数的调用</li>
+<li>改变 <code>this</code> 的指向 <ul>
+<li>没有参数时 <code>this</code> 指向 <code>window</code></li>
+<li>一个参数时 <code>this</code> 指向 该参数</li>
+</ul>
+</li>
+</ul>
+<h3 id="apply"><a href="#apply" class="headerlink" title="apply()"></a>apply()</h3><ul>
+<li>进行函数的调用</li>
+<li>改变 <code>this</code> 的指向<ul>
+<li>没有参数时 <code>this</code> 指向 <code>window</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="bind"><a href="#bind" class="headerlink" title="bind()"></a>bind()</h3><ul>
+<li>不会进行函数的调用</li>
+<li>改变 <code>this</code> 的指向<ul>
+<li>没有参数时 <code>this</code> 指向 <code>window</code></li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">&quot;xxx&quot;</span>;</span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&quot;yyy&quot;</span>,</span><br><span class="line">  <span class="attr">getName</span>:<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">name</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">obj.<span class="title function_">apply</span>();</span><br><span class="line">obj.<span class="property">getName</span>.<span class="title function_">apply</span>();</span><br><span class="line">obj.<span class="title function_">apply</span>();</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> obg = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&quot;yyy&quot;</span>,</span><br><span class="line">  <span class="attr">getName</span>:<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">name</span>)</span><br><span class="line">  &#125;.<span class="title function_">bind</span>()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="原型对象的函数中的this指向"><a href="#原型对象的函数中的this指向" class="headerlink" title="原型对象的函数中的this指向"></a>原型对象的函数中的this指向</h2><p>如果被实例化对象所调用 this指向实例化对象<br>如果被原型对象调用 this指向原型对象</p>
+<h2 id="new关键字的作用"><a href="#new关键字的作用" class="headerlink" title="new关键字的作用"></a>new关键字的作用</h2><ul>
+<li>创建实例化对象</li>
+<li>让构造函数中的this指向实例化对象</li>
+</ul>
+<h2 id="new关键字的底层原理"><a href="#new关键字的底层原理" class="headerlink" title="new关键字的底层原理"></a>new关键字的底层原理</h2><ol>
+<li><code>var person = &#123;&#125;</code> 创建新对象</li>
+<li><code>Person.call(person)</code> 构造函数调用完成让this指向实例对象 实例对象拥有构造函数中的属性和方法</li>
+<li><code>p1.__proto__</code> 指向 <code>Person.protoType</code> 实例化对象的指针地址指向构造函数的原型 地址相同</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">Person</span>(<span class="params">name</span>) &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">name</span> = name;</span><br><span class="line">&#125;</span><br><span class="line"><span class="title class_">Person</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">age</span> = <span class="number">18</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> person = <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&quot;小明&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<h1 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h1><h2 id="原型继承"><a href="#原型继承" class="headerlink" title="原型继承"></a>原型继承</h2><h2 id="构造继承"><a href="#构造继承" class="headerlink" title="构造继承"></a>构造继承</h2><h2 id="拷贝继承"><a href="#拷贝继承" class="headerlink" title="拷贝继承"></a>拷贝继承</h2><h1 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h1><h2 id="调用方式"><a href="#调用方式" class="headerlink" title="调用方式"></a>调用方式</h2><p>函数名()</p>
+<p><code>call()</code>&#x2F;<code>apply()</code></p>
+<h3 id="自调用"><a href="#自调用" class="headerlink" title="自调用"></a>自调用</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  xxx</span><br><span class="line">&#125;)()</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> xxx = (<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  xxx</span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure>
+
+<h2 id="对象中的调用"><a href="#对象中的调用" class="headerlink" title="对象中的调用"></a>对象中的调用</h2><h2 id="数组中的调用"><a href="#数组中的调用" class="headerlink" title="数组中的调用"></a>数组中的调用</h2><h2 id="函数作为参数调用"><a href="#函数作为参数调用" class="headerlink" title="函数作为参数调用"></a>函数作为参数调用</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">xxx</span>(<span class="params">x</span>) &#123;</span><br><span class="line">  <span class="title function_">x</span>()</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">xxx</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;xxx&quot;</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h2 id="函数作为参数返回"><a href="#函数作为参数返回" class="headerlink" title="函数作为参数返回"></a>函数作为参数返回</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">xxx</span>(<span class="params">x</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">xxx</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;xxx&quot;</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h1 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h1><p>定义在一个函数内部的函数</p>
+<h2 id="作用-1"><a href="#作用-1" class="headerlink" title="作用"></a>作用</h2><ul>
+<li>获取父函数内部的变量</li>
+<li>锁住父函数内部的变量</li>
+</ul>
+<h2 id="本质"><a href="#本质" class="headerlink" title="本质"></a>本质</h2><p>让父函数相对于子元素成为永恒作用域</p>
+<h1 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h1><ul>
+<li>特定字符</li>
+<li>元字符</li>
+<li>限定符</li>
+<li>其他符号</li>
+</ul>
+<p><code>var xxx = new RegExp()</code></p>
+<h2 id="元字符"><a href="#元字符" class="headerlink" title="元字符"></a>元字符</h2><ul>
+<li><code>\d</code> 匹配至少一个数字字符</li>
+<li><code>\D</code> 匹配至少一个非数字任意字符</li>
+<li><code>\w</code> 匹配至少一个字母数字下划线字符</li>
+<li><code>\W</code> 匹配至少有一个不是字母数字下划线字符</li>
+<li><code>\s</code> 匹配至少任意的空白字符</li>
+<li><code>\S</code> 匹配至少一个不是空白字符</li>
+<li><code>\.</code> 匹配至少一个换行符</li>
+<li><code>^</code> 匹配行首的文本</li>
+<li><code>$</code> 匹配行尾的文本</li>
+</ul>
+<p>限定符</p>
+<ul>
+<li><code>*</code> 匹配重复0次或无限次</li>
+<li><code>?</code> 匹配重复0次或1次</li>
+<li><code>+</code> 匹配至少重复1次或无限次</li>
+<li><code>&#123;n&#125;</code> 匹配至少重复 <code>n</code> 次<ul>
+<li><code>^&#123;n&#125;$</code> 匹配必须重复 <code>n</code> 次</li>
+</ul>
+</li>
+<li><code>&#123;n,m&#125;</code> 匹配重复 <code>n</code> 到 <code>m</code> 次</li>
+</ul>
+<h1 id="Web-存储"><a href="#Web-存储" class="headerlink" title="Web 存储"></a>Web 存储</h1><ul>
+<li>localStorage 本地存储 永久存储</li>
+<li>sessionStorage 会话存储 会话存储</li>
+</ul>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><ul>
+<li><code>length</code> 数据长度</li>
+<li><code>setItem(key,value)</code> 存储数据</li>
+<li><code>setItem(key)</code> 获取数据</li>
+<li><code>removeItem(key)</code> 删除数据</li>
+<li><code>clear()</code> 清空数据</li>
+<li><code>key(index)</code> 获取index索引的key值</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/11/20/JavaScript-I/" rel="prev" title="JavaScript 从入门到放弃：特点、作用、关系、组成、变量、数据类型简析">
+      <i class="fa fa-chevron-left"></i> JavaScript 从入门到放弃：特点、作用、关系、组成、变量、数据类型简析
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/11/22/JavaScript-III/" rel="next" title="JavaScript 从入门到放弃：API、类型、DOM、事件和BOM对象">
+      JavaScript 从入门到放弃：API、类型、DOM、事件和BOM对象 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.</span> <span class="nav-text">基于对象</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1"><span class="nav-number">2.</span> <span class="nav-text">对象</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1"><span class="nav-number">3.</span> <span class="nav-text">面向对象</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A7%92%E6%87%82"><span class="nav-number">3.1.</span> <span class="nav-text">秒懂</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%B9%E5%BE%81"><span class="nav-number">3.2.</span> <span class="nav-text">特征</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1"><span class="nav-number">3.3.</span> <span class="nav-text">创建对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A4%E6%96%AD"><span class="nav-number">3.4.</span> <span class="nav-text">判断</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E5%AD%98"><span class="nav-number">3.5.</span> <span class="nav-text">内存</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D"><span class="nav-number">3.5.1.</span> <span class="nav-text">内存分配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E4%BD%BF%E7%94%A8"><span class="nav-number">3.5.2.</span> <span class="nav-text">内存使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E9%94%80%E6%AF%81"><span class="nav-number">3.5.3.</span> <span class="nav-text">内存销毁</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8E%9F%E5%9E%8B"><span class="nav-number">4.</span> <span class="nav-text">原型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%9C%E7%94%A8"><span class="nav-number">4.1.</span> <span class="nav-text">作用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0-%E5%AE%9E%E4%BE%8B%E5%AF%B9%E8%B1%A1-%E5%8E%9F%E5%9E%8B%E7%9B%B4%E6%8E%A5%E5%85%B3%E7%B3%BB"><span class="nav-number">4.2.</span> <span class="nav-text">构造函数 实例对象 原型直接关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Prototype%E5%92%8C-proto-%E5%85%B3%E7%B3%BB"><span class="nav-number">4.3.</span> <span class="nav-text">Prototype和__proto__关系</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#prototype-%E5%B1%9E%E6%80%A7"><span class="nav-number">4.3.1.</span> <span class="nav-text">prototype 属性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#proto-%E5%B1%9E%E6%80%A7%EF%BC%9A"><span class="nav-number">4.4.</span> <span class="nav-text">__proto__ 属性：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8E%9F%E5%9E%8B%E9%93%BE"><span class="nav-number">5.</span> <span class="nav-text">原型链</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E6%89%BE%E8%A7%84%E5%88%99"><span class="nav-number">5.1.</span> <span class="nav-text">查找规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%94%B9%E5%8F%98this%E6%8C%87%E5%90%91"><span class="nav-number">5.2.</span> <span class="nav-text">改变this指向</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#call"><span class="nav-number">5.2.1.</span> <span class="nav-text">call()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#apply"><span class="nav-number">5.2.2.</span> <span class="nav-text">apply()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bind"><span class="nav-number">5.2.3.</span> <span class="nav-text">bind()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%9F%E5%9E%8B%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%87%BD%E6%95%B0%E4%B8%AD%E7%9A%84this%E6%8C%87%E5%90%91"><span class="nav-number">5.3.</span> <span class="nav-text">原型对象的函数中的this指向</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#new%E5%85%B3%E9%94%AE%E5%AD%97%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-number">5.4.</span> <span class="nav-text">new关键字的作用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#new%E5%85%B3%E9%94%AE%E5%AD%97%E7%9A%84%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86"><span class="nav-number">5.5.</span> <span class="nav-text">new关键字的底层原理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BB%A7%E6%89%BF"><span class="nav-number">6.</span> <span class="nav-text">继承</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%9F%E5%9E%8B%E7%BB%A7%E6%89%BF"><span class="nav-number">6.1.</span> <span class="nav-text">原型继承</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9E%84%E9%80%A0%E7%BB%A7%E6%89%BF"><span class="nav-number">6.2.</span> <span class="nav-text">构造继承</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8B%B7%E8%B4%9D%E7%BB%A7%E6%89%BF"><span class="nav-number">6.3.</span> <span class="nav-text">拷贝继承</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%87%BD%E6%95%B0"><span class="nav-number">7.</span> <span class="nav-text">函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B0%83%E7%94%A8%E6%96%B9%E5%BC%8F"><span class="nav-number">7.1.</span> <span class="nav-text">调用方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E8%B0%83%E7%94%A8"><span class="nav-number">7.1.1.</span> <span class="nav-text">自调用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E4%B8%AD%E7%9A%84%E8%B0%83%E7%94%A8"><span class="nav-number">7.2.</span> <span class="nav-text">对象中的调用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E8%B0%83%E7%94%A8"><span class="nav-number">7.3.</span> <span class="nav-text">数组中的调用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E4%BD%9C%E4%B8%BA%E5%8F%82%E6%95%B0%E8%B0%83%E7%94%A8"><span class="nav-number">7.4.</span> <span class="nav-text">函数作为参数调用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E4%BD%9C%E4%B8%BA%E5%8F%82%E6%95%B0%E8%BF%94%E5%9B%9E"><span class="nav-number">7.5.</span> <span class="nav-text">函数作为参数返回</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%97%AD%E5%8C%85"><span class="nav-number">8.</span> <span class="nav-text">闭包</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%9C%E7%94%A8-1"><span class="nav-number">8.1.</span> <span class="nav-text">作用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%AC%E8%B4%A8"><span class="nav-number">8.2.</span> <span class="nav-text">本质</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">9.</span> <span class="nav-text">正则表达式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%83%E5%AD%97%E7%AC%A6"><span class="nav-number">9.1.</span> <span class="nav-text">元字符</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Web-%E5%AD%98%E5%82%A8"><span class="nav-number">10.</span> <span class="nav-text">Web 存储</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%B3%95"><span class="nav-number">10.1.</span> <span class="nav-text">方法</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Onei</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Onei</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

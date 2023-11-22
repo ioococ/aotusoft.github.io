@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"right","width":320,"display":"post","padding":18,"offset":40},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="啊哈哈，第三部分咯。受够 JavaScript 了，不想写简介...">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript 从入门到放弃：API、类型、DOM、事件和BOM对象">
+<meta property="og:url" content="http://example.com/2023/11/22/JavaScript-III/index.html">
+<meta property="og:site_name" content="Hi, Onei">
+<meta property="og:description" content="啊哈哈，第三部分咯。受够 JavaScript 了，不想写简介...">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-11-22T10:03:00.000Z">
+<meta property="article:modified_time" content="2023-11-22T10:18:54.874Z">
+<meta property="article:author" content="Onei">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2023/11/22/JavaScript-III/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>JavaScript 从入门到放弃：API、类型、DOM、事件和BOM对象 | Hi, Onei</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hi, Onei</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/22/JavaScript-III/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Onei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hi, Onei">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JavaScript 从入门到放弃：API、类型、DOM、事件和BOM对象
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-11-22 18:03:00 / 修改时间：18:18:54" itemprop="dateCreated datePublished" datetime="2023-11-22T18:03:00+08:00">2023-11-22</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/WEB%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">WEB开发</span></a>
+                </span>
+            </span>
+
+          
+            <div class="post-description">啊哈哈，第三部分咯。受够 JavaScript 了，不想写简介...</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="🏘️-API"><a href="#🏘️-API" class="headerlink" title="🏘️ API"></a>🏘️ API</h1><h1 id="✏️-定义"><a href="#✏️-定义" class="headerlink" title="✏️ 定义"></a>✏️ 定义</h1><p>Application Programming Interface 应用程序编程接口 是一些内置的函数</p>
+<h1 id="🍎-类型"><a href="#🍎-类型" class="headerlink" title="🍎 类型"></a>🍎 类型</h1><ul>
+<li>数据类 API<ul>
+<li><code>getMonth()/reverse()</code></li>
+</ul>
+</li>
+<li>BOM API<ul>
+<li><code>alert()/prompt()/log()</code></li>
+</ul>
+</li>
+<li>DOM API<ul>
+<li><code>write()</code></li>
+</ul>
+</li>
+</ul>
+<h1 id="📝-DOM-对象"><a href="#📝-DOM-对象" class="headerlink" title="📝 DOM 对象"></a>📝 DOM 对象</h1><p>节点 元素 方法</p>
+<h1 id="🏗️-DOM-结构树"><a href="#🏗️-DOM-结构树" class="headerlink" title="🏗️ DOM 结构树"></a>🏗️ DOM 结构树</h1><p>顶级对象 <code>document</code></p>
+<ul>
+<li>文档(Document)<ul>
+<li>一个网页可看作一个文档</li>
+</ul>
+</li>
+<li>元素(Element)<ul>
+<li>标签</li>
+</ul>
+</li>
+<li>属性(Attribute)<ul>
+<li>元素的属性(class&#x2F;id&#x2F;type)</li>
+</ul>
+</li>
+<li>节点<ul>
+<li>网页中全部的内容均为节点(Document Element Attribute Comment)</li>
+</ul>
+</li>
+</ul>
+<h2 id="📍-位置"><a href="#📍-位置" class="headerlink" title="📍 位置"></a>📍 位置</h2><ul>
+<li>内部 <code>script</code> 标签</li>
+<li>行内元素</li>
+<li>外部js文件<br><strong>在事件函数中 this 指向当前事件源</strong></li>
+</ul>
+<h2 id="🛠️-操作"><a href="#🛠️-操作" class="headerlink" title="🛠️ 操作"></a>🛠️ 操作</h2><p>操作DOM就是操作DOM中的节点</p>
+<h2 id="🔰-获取"><a href="#🔰-获取" class="headerlink" title="🔰 获取"></a>🔰 获取</h2><ul>
+<li>通过ID <strong>单元素</strong><ul>
+<li><code>document.getElementById()</code></li>
+</ul>
+</li>
+<li>通过类名 <strong>多元素</strong><ul>
+<li><code>document.getElementsByClass()</code></li>
+</ul>
+</li>
+<li>通过元素名 <strong>多元素</strong></li>
+<li>通过 <code>name</code> 属性名 <strong>多元素</strong></li>
+<li>通过 <code>querySelector()</code> <strong>单元素</strong><ul>
+<li>指定选择器的第一个元素</li>
+</ul>
+</li>
+<li>通过 <code>querySelectorAll()</code> <strong>多元素</strong><ul>
+<li>指定选择器的所有元素</li>
+</ul>
+</li>
+</ul>
+<h1 id="🎿-事件"><a href="#🎿-事件" class="headerlink" title="🎿 事件"></a>🎿 事件</h1><p>异步操作</p>
+<p>触发 - 响应 的过程</p>
+<p>三要素</p>
+<ul>
+<li>事件源<br>触发的元素或浏览器</li>
+<li>事件类型<br>事件触发的方式(鼠标事件 键盘事件 浏览器事件)</li>
+<li>事件处理程序<br>事件触发后指向的代码 通常是函数</li>
+</ul>
+<p>事件处理程序通过事件监听器传递给浏览器的，而不是直接包含在事件对象中。</p>
+<p>事件对象：是在触发事件时由浏览器创建的对象，它包含了与事件相关的多种信息。<br>事件源对象：触发事件的元素或节点，即事件发生的源头。</p>
+<h2 id="事件源"><a href="#事件源" class="headerlink" title="事件源"></a>事件源</h2><ul>
+<li><code>onclick()</code> 鼠标单击事件</li>
+<li><code>ondbclick()</code> 鼠标双击事件</li>
+<li><code>onmouseover()</code> 鼠标移入事件</li>
+<li><code>onmouseout()</code> 鼠标移出事件</li>
+<li><code>onmousedown()</code> 鼠标按下事件</li>
+<li><code>onmouseup()</code> 鼠标抬起事件</li>
+<li><code>onmousemove()</code> 鼠标移动事件</li>
+<li><code>onmouseenter()</code> 鼠标进入事件</li>
+<li><code>onmouseleave()</code> 鼠标离开事件</li>
+<li><code>onfocus()</code> 获取焦点</li>
+<li><code>onblur()</code> 失去焦点</li>
+</ul>
+<p><strong>移入移出和进入进出区别</strong></p>
+<p><code>mouseenter()</code> 或 <code>onmouseleave()</code> 不会冒泡 父元素不会被子元素的状态影响<br><code>mouseover()</code> 或 <code>onmouseout()</code> 会被子元素影响 在触发子元素时会冒泡触发它的父元素<br>在子元素中设置 <code>stopPropagation()</code> 阻止冒泡行为 或者设置父元素事件解绑</p>
+<ul>
+<li><code>onkeydown()</code> 键盘按下事件</li>
+<li><code>onkeyup()</code> 键盘抬起事件</li>
+<li><code>onload()</code> 浏览器加载完成事件</li>
+<li><code>onscroll()</code> 浏览器滚动事件</li>
+</ul>
+<h2 id="绑定事件"><a href="#绑定事件" class="headerlink" title="绑定事件"></a>绑定事件</h2><p>DOM0 版本事件触发</p>
+<p><code>事件源.事件类型 = 事件处理程序</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 在事件函数中 this 指向当前事件源</span></span><br><span class="line"><span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;btn&quot;</span>).<span class="property">onclick</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="解绑事件源"><a href="#解绑事件源" class="headerlink" title="解绑事件源"></a>解绑事件源</h2><p><code>事件源.事件类型 = null</code></p>
+<p>DOM0 版本会产生事件覆盖事件行为，所以将事件行为设置为 <code>null</code> 将旧事件行为覆盖即可解绑事件源</p>
+<h2 id="监听事件"><a href="#监听事件" class="headerlink" title="监听事件"></a>监听事件</h2><p>DOM2 版本事件触发</p>
+<p><code>事件源.addEventListener(事件类型,事件处理程序)</code></p>
+<p>任何事件都有内置 <code>event</code> 对象</p>
+<ul>
+<li><code>target</code> 当前事件源信息</li>
+<li><code>type</code> 事件类型</li>
+</ul>
+<p><code>client</code> <code>page</code><br>均为事件触发点距离左上角的像素值</p>
+<p><code>clientX</code> 和 <code>clientY</code> 不包含滚动条卷去的像素值</p>
+<h2 id="解绑监听事件"><a href="#解绑监听事件" class="headerlink" title="解绑监听事件"></a>解绑监听事件</h2><p><code>事件源.removeEventListener(事件类型,事件处理程序)</code></p>
+<h2 id="键盘事件"><a href="#键盘事件" class="headerlink" title="键盘事件"></a>键盘事件</h2><p><code>keycode</code></p>
+<h2 id="阻止默认事件"><a href="#阻止默认事件" class="headerlink" title="阻止默认事件"></a>阻止默认事件</h2><p><code>对象.preventDefault()</code></p>
+<p>考试</p>
+<h2 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h2><p><code>对象.getAttribute(元素属性)</code> 获取元素属性的属性值<br><code>对象.setAttribute(元素属性)</code> 设置元素属性的属性值<br><code>对象.removeAttribute(元素属性)</code> 移除元素属性和属性值</p>
+<h1 id="修改元素样式"><a href="#修改元素样式" class="headerlink" title="修改元素样式"></a>修改元素样式</h1><ul>
+<li>对象.style.样式<ul>
+<li>对象.style.[‘CSS属性’] &#x3D; ‘CSS属性值’</li>
+</ul>
+</li>
+<li>对象.className &#x3D; “xxx”</li>
+<li>对象.setAttribute(“style”,yyy)<ul>
+<li>对象.setAttribute(“class”,yyy)</li>
+</ul>
+</li>
+<li>对象.setProperty(CSS属性,CSS属性值)</li>
+<li>对象.style.cssText &#x3D; “CSS属性:CSS属性值”</li>
+<li>对象[‘style’][‘CSS属性’] &#x3D; ‘CSS属性值’</li>
+</ul>
+<h2 id="非表单元素"><a href="#非表单元素" class="headerlink" title="非表单元素"></a>非表单元素</h2><h3 id="设置宽高"><a href="#设置宽高" class="headerlink" title="设置宽高"></a>设置宽高</h3><p><code>xxx.height=yyy</code> <code>xxx.width=yyy</code></p>
+<h3 id="设置行内属性"><a href="#设置行内属性" class="headerlink" title="设置行内属性"></a>设置行内属性</h3><p><code>xxx.style.yyy=zzz</code> 带有连字符的CSS属性需要去连字符并大写第二单词首字母</p>
+<h3 id="添加类名"><a href="#添加类名" class="headerlink" title="添加类名"></a>添加类名</h3><p><code>xxx.className= &#39;类名&#39;</code> 会覆盖原有类名</p>
+<h3 id="操作文本节点"><a href="#操作文本节点" class="headerlink" title="操作文本节点"></a>操作文本节点</h3><p><code>innerText</code> 会覆盖其他内容</p>
+<h3 id="操作所有节点"><a href="#操作所有节点" class="headerlink" title="操作所有节点"></a>操作所有节点</h3><p><code>innerHTML</code></p>
+<h1 id="🔗-节点"><a href="#🔗-节点" class="headerlink" title="🔗 节点"></a>🔗 节点</h1><h2 id="节点类型"><a href="#节点类型" class="headerlink" title="节点类型"></a>节点类型</h2><ul>
+<li>nodeType 节点类型</li>
+<li>nodeName 节点名称</li>
+<li>nodeValue 节点值</li>
+</ul>
+<p><code>getAttributeNode()</code> 获取元素指定属性名的属性节点<br><code>firstChild</code> 获取元素的文本节点</p>
+<ul>
+<li>元素的第一个子节点为文本节点</li>
+</ul>
+<p>firstChild 文本节点</p>
+<p>innerText 文本内容</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>元素节点</th>
+<th>属性节点</th>
+<th>文本节点</th>
+<th>document</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>节点类型</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>9</td>
+</tr>
+<tr>
+<td>节点名称</td>
+<td>大写标签名</td>
+<td>属性名</td>
+<td>#text</td>
+<td>#document</td>
+</tr>
+<tr>
+<td>节点值</td>
+<td>null</td>
+<td>属性名的属性值</td>
+<td>文本内容</td>
+<td>null</td>
+</tr>
+</tbody></table>
+<h2 id="节点关系"><a href="#节点关系" class="headerlink" title="节点关系"></a>节点关系</h2><ul>
+<li><code>对象.parentNode()</code> 父节点<ul>
+<li>顶层节点为 <code>#document</code></li>
+</ul>
+</li>
+<li><code>对象.parentElement()</code> 父元素节点<ul>
+<li>顶层节点为 <code>html</code></li>
+</ul>
+</li>
+</ul>
+<p>html的父节点parentNode是document节点的节点名称，html的父元素节点parentElement是document节点的节点值</p>
+<ul>
+<li><p><code>对象.childsNode()</code> 所有子节点</p>
+<ul>
+<li>包含标签节点 文本节点 注释节点</li>
+</ul>
+</li>
+<li><p><code>对象.children()</code> 子元素节点</p>
+</li>
+<li><p><code>对象.firstChild()</code> 第一个子节点</p>
+<ul>
+<li>文本节点</li>
+</ul>
+</li>
+<li><p><code>对象.firstElementChild()</code> 第一个子元素节点</p>
+</li>
+<li><p><code>对象.lastChild()</code> 最后一个子节点</p>
+<ul>
+<li>文本节点</li>
+</ul>
+</li>
+<li><p><code>对象.lastElementChild()</code> 最后一个子元素节点</p>
+</li>
+<li><p><code>对象.previousSibling()</code> 上一个节点</p>
+<ul>
+<li>文本节点</li>
+</ul>
+</li>
+<li><p><code>对象.previousElementSibling()</code> 上一个元素节点</p>
+</li>
+<li><p><code>对象.nextSibling()</code> 下一个节点</p>
+<ul>
+<li>文本节点</li>
+</ul>
+</li>
+<li><p><code>对象.nextElementSibling()</code> 下一个元素节点</p>
+</li>
+</ul>
+<p>创建元素</p>
+<ul>
+<li><code>document.write()</code><ul>
+<li>只能向 <code>body</code> 中添加元素</li>
+</ul>
+</li>
+<li><code>innerHTML = xxx</code><ul>
+<li>会覆盖原有元素</li>
+</ul>
+</li>
+<li><code>document.createElement()</code></li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> element = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&quot;aside&quot;</span>);</span><br><span class="line"><span class="keyword">var</span> body = <span class="variable language_">document</span>.<span class="property">body</span>;</span><br><span class="line">body.<span class="title function_">appendChild</span>(element);</span><br><span class="line">element.<span class="property">innerText</span> = <span class="string">&quot;xxx&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<p><code>父元素.removeChild()</code> 删除子元素</p>
+<h1 id="BOM-对象"><a href="#BOM-对象" class="headerlink" title="BOM 对象"></a>BOM 对象</h1><h2 id="结构树"><a href="#结构树" class="headerlink" title="结构树"></a>结构树</h2><p>顶级对象 <code>window</code></p>
+<p>属性 console 全局变量 history location</p>
+<p>alert() prompt()</p>
+<p>onload</p>
+<h1 id="window-对象"><a href="#window-对象" class="headerlink" title="window 对象"></a>window 对象</h1><ul>
+<li><code>location.hash</code> 地址栏#后内容</li>
+<li><code>location.host</code> 主机名及端口号</li>
+<li><code>reload()</code> 重载</li>
+<li><code>history.forward()</code> 前进</li>
+<li><code>history.back()</code> 后退</li>
+</ul>
+<h1 id="offset"><a href="#offset" class="headerlink" title="offset"></a>offset</h1><h2 id="offsetWidth-offsetHeight"><a href="#offsetWidth-offsetHeight" class="headerlink" title="offsetWidth&#x2F;offsetHeight"></a>offsetWidth&#x2F;offsetHeight</h2><p><code>offsetWidth</code> 包含</p>
+<ul>
+<li>width </li>
+<li>border-left 和 border-right</li>
+<li>padding-left 和 padding-right</li>
+</ul>
+<p><code>offsetHeight</code> 包含</p>
+<ul>
+<li>height</li>
+<li>border-top&#x2F;border-bottom</li>
+<li>padding-top&#x2F;padding-bottom</li>
+</ul>
+<h2 id="offsetLeft-offsetTop"><a href="#offsetLeft-offsetTop" class="headerlink" title="offsetLeft&#x2F;offsetTop"></a>offsetLeft&#x2F;offsetTop</h2><p>父元素不存在定位 相对于左&#x2F;上侧浏览器距离<br>父元素存在定位 相对于左&#x2F;上侧父元素距离</p>
+<h1 id="client"><a href="#client" class="headerlink" title="client"></a>client</h1><h2 id="clientWidth-clientHeight"><a href="#clientWidth-clientHeight" class="headerlink" title="clientWidth&#x2F;clientHeight"></a>clientWidth&#x2F;clientHeight</h2><p><code>clientWidth</code> 包含</p>
+<p>width padding-left padding-right</p>
+<p><code>clientHeight</code> 包含</p>
+<p>height padding-top padding-bottom</p>
+<h2 id="clientLeft-clientTop"><a href="#clientLeft-clientTop" class="headerlink" title="clientLeft&#x2F;clientTop"></a>clientLeft&#x2F;clientTop</h2><p>border-left &#x2F; border-top</p>
+<h1 id="scroll"><a href="#scroll" class="headerlink" title="scroll"></a>scroll</h1><h2 id="scrollWidth-scrollHeight"><a href="#scrollWidth-scrollHeight" class="headerlink" title="scrollWidth&#x2F;scrollHeight"></a>scrollWidth&#x2F;scrollHeight</h2><ul>
+<li>width&#x2F;height</li>
+<li>滚动条卷去的宽度&#x2F;高度</li>
+</ul>
+<h2 id="scrollLeft-scrollTop"><a href="#scrollLeft-scrollTop" class="headerlink" title="scrollLeft&#x2F;scrollTop"></a>scrollLeft&#x2F;scrollTop</h2><p>只有在滚动事件下才能获取 值可被设置</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/11/22/JavaScript-II/" rel="prev" title="JavaScript 从入门到放弃：基于对象">
+      <i class="fa fa-chevron-left"></i> JavaScript 从入门到放弃：基于对象
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%F0%9F%8F%98%EF%B8%8F-API"><span class="nav-number">1.</span> <span class="nav-text">🏘️ API</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E2%9C%8F%EF%B8%8F-%E5%AE%9A%E4%B9%89"><span class="nav-number">2.</span> <span class="nav-text">✏️ 定义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%F0%9F%8D%8E-%E7%B1%BB%E5%9E%8B"><span class="nav-number">3.</span> <span class="nav-text">🍎 类型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%F0%9F%93%9D-DOM-%E5%AF%B9%E8%B1%A1"><span class="nav-number">4.</span> <span class="nav-text">📝 DOM 对象</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%F0%9F%8F%97%EF%B8%8F-DOM-%E7%BB%93%E6%9E%84%E6%A0%91"><span class="nav-number">5.</span> <span class="nav-text">🏗️ DOM 结构树</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%93%8D-%E4%BD%8D%E7%BD%AE"><span class="nav-number">5.1.</span> <span class="nav-text">📍 位置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%9B%A0%EF%B8%8F-%E6%93%8D%E4%BD%9C"><span class="nav-number">5.2.</span> <span class="nav-text">🛠️ 操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%94%B0-%E8%8E%B7%E5%8F%96"><span class="nav-number">5.3.</span> <span class="nav-text">🔰 获取</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%F0%9F%8E%BF-%E4%BA%8B%E4%BB%B6"><span class="nav-number">6.</span> <span class="nav-text">🎿 事件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6%E6%BA%90"><span class="nav-number">6.1.</span> <span class="nav-text">事件源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%91%E5%AE%9A%E4%BA%8B%E4%BB%B6"><span class="nav-number">6.2.</span> <span class="nav-text">绑定事件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E7%BB%91%E4%BA%8B%E4%BB%B6%E6%BA%90"><span class="nav-number">6.3.</span> <span class="nav-text">解绑事件源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%91%E5%90%AC%E4%BA%8B%E4%BB%B6"><span class="nav-number">6.4.</span> <span class="nav-text">监听事件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E7%BB%91%E7%9B%91%E5%90%AC%E4%BA%8B%E4%BB%B6"><span class="nav-number">6.5.</span> <span class="nav-text">解绑监听事件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%94%AE%E7%9B%98%E4%BA%8B%E4%BB%B6"><span class="nav-number">6.6.</span> <span class="nav-text">键盘事件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%98%BB%E6%AD%A2%E9%BB%98%E8%AE%A4%E4%BA%8B%E4%BB%B6"><span class="nav-number">6.7.</span> <span class="nav-text">阻止默认事件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B1%9E%E6%80%A7"><span class="nav-number">6.8.</span> <span class="nav-text">属性</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E5%85%83%E7%B4%A0%E6%A0%B7%E5%BC%8F"><span class="nav-number">7.</span> <span class="nav-text">修改元素样式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%9E%E8%A1%A8%E5%8D%95%E5%85%83%E7%B4%A0"><span class="nav-number">7.1.</span> <span class="nav-text">非表单元素</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E5%AE%BD%E9%AB%98"><span class="nav-number">7.1.1.</span> <span class="nav-text">设置宽高</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E8%A1%8C%E5%86%85%E5%B1%9E%E6%80%A7"><span class="nav-number">7.1.2.</span> <span class="nav-text">设置行内属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E7%B1%BB%E5%90%8D"><span class="nav-number">7.1.3.</span> <span class="nav-text">添加类名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E6%96%87%E6%9C%AC%E8%8A%82%E7%82%B9"><span class="nav-number">7.1.4.</span> <span class="nav-text">操作文本节点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E6%89%80%E6%9C%89%E8%8A%82%E7%82%B9"><span class="nav-number">7.1.5.</span> <span class="nav-text">操作所有节点</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%F0%9F%94%97-%E8%8A%82%E7%82%B9"><span class="nav-number">8.</span> <span class="nav-text">🔗 节点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%8A%82%E7%82%B9%E7%B1%BB%E5%9E%8B"><span class="nav-number">8.1.</span> <span class="nav-text">节点类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%8A%82%E7%82%B9%E5%85%B3%E7%B3%BB"><span class="nav-number">8.2.</span> <span class="nav-text">节点关系</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BOM-%E5%AF%B9%E8%B1%A1"><span class="nav-number">9.</span> <span class="nav-text">BOM 对象</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E6%9E%84%E6%A0%91"><span class="nav-number">9.1.</span> <span class="nav-text">结构树</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#window-%E5%AF%B9%E8%B1%A1"><span class="nav-number">10.</span> <span class="nav-text">window 对象</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#offset"><span class="nav-number">11.</span> <span class="nav-text">offset</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#offsetWidth-offsetHeight"><span class="nav-number">11.1.</span> <span class="nav-text">offsetWidth&#x2F;offsetHeight</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#offsetLeft-offsetTop"><span class="nav-number">11.2.</span> <span class="nav-text">offsetLeft&#x2F;offsetTop</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#client"><span class="nav-number">12.</span> <span class="nav-text">client</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#clientWidth-clientHeight"><span class="nav-number">12.1.</span> <span class="nav-text">clientWidth&#x2F;clientHeight</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#clientLeft-clientTop"><span class="nav-number">12.2.</span> <span class="nav-text">clientLeft&#x2F;clientTop</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#scroll"><span class="nav-number">13.</span> <span class="nav-text">scroll</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#scrollWidth-scrollHeight"><span class="nav-number">13.1.</span> <span class="nav-text">scrollWidth&#x2F;scrollHeight</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#scrollLeft-scrollTop"><span class="nav-number">13.2.</span> <span class="nav-text">scrollLeft&#x2F;scrollTop</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Onei</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Onei</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
