@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Hi, Onei</title>
+  
+  
+  <link href="http://aotusoft.github.io/atom.xml" rel="self"/>
+  
+  <link href="http://aotusoft.github.io/"/>
+  <updated>2023-11-23T08:54:35.058Z</updated>
+  <id>http://aotusoft.github.io/</id>
+  
+  <author>
+    <name>Onei</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>JavaScript 从入门到放弃：框架其实很简单</title>
+    <link href="http://aotusoft.github.io/2023/11/23/Framework/"/>
+    <id>http://aotusoft.github.io/2023/11/23/Framework/</id>
+    <published>2023-11-23T02:11:20.000Z</published>
+    <updated>2023-11-23T08:54:35.058Z</updated>
+    
+    
+    <summary type="html">本文讲了两个框架，jQuery 和 Echarts。剩下的交给全文吧...</summary>
+    
+    
+    
+    <category term="WEB开发" scheme="http://aotusoft.github.io/categories/WEB%E5%BC%80%E5%8F%91/"/>
+    
+    
+    <category term="jquery" scheme="http://aotusoft.github.io/tags/jquery/"/>
+    
+    <category term="echarts" scheme="http://aotusoft.github.io/tags/echarts/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>JavaScript 从入门到放弃：API、类型、DOM、事件和BOM对象</title>
+    <link href="http://aotusoft.github.io/2023/11/22/JavaScript-III/"/>
+    <id>http://aotusoft.github.io/2023/11/22/JavaScript-III/</id>
+    <published>2023-11-22T10:03:00.000Z</published>
+    <updated>2023-11-22T10:18:54.874Z</updated>
+    
+    
+    <summary type="html">啊哈哈，第三部分咯。受够 JavaScript 了，不想写简介...</summary>
+    
+    
+    
+    <category term="WEB开发" scheme="http://aotusoft.github.io/categories/WEB%E5%BC%80%E5%8F%91/"/>
+    
+    
+    <category term="JavaScript" scheme="http://aotusoft.github.io/tags/JavaScript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>JavaScript 从入门到放弃：基于对象</title>
+    <link href="http://aotusoft.github.io/2023/11/22/JavaScript-II/"/>
+    <id>http://aotusoft.github.io/2023/11/22/JavaScript-II/</id>
+    <published>2023-11-22T06:00:00.000Z</published>
+    <updated>2023-11-22T10:03:06.542Z</updated>
+    
+    
+    <summary type="html">这篇是 JavaScript 从入门到放弃的第二节，JavaScript 并不是面向对象而是基于对象。JavaScript 有许多与面向对象的相似之处，例如封装和继承。有Java基础后再看 JavaScript，发现这语言真灵活~~（语法稀烂）~~</summary>
+    
+    
+    
+    <category term="WEB开发" scheme="http://aotusoft.github.io/categories/WEB%E5%BC%80%E5%8F%91/"/>
+    
+    
+    <category term="JavaScript" scheme="http://aotusoft.github.io/tags/JavaScript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>JavaScript 从入门到放弃：特点、作用、关系、组成、变量、数据类型简析</title>
+    <link href="http://aotusoft.github.io/2023/11/19/JavaScript-I/"/>
+    <id>http://aotusoft.github.io/2023/11/19/JavaScript-I/</id>
+    <published>2023-11-19T03:01:40.000Z</published>
+    <updated>2023-11-22T11:19:49.264Z</updated>
+    
+    
+    <summary type="html">~~JavaScript 从入门到放弃~~初探JavaScript，这篇文章记录了JavaScript其特点、作用、与Java的关系，深入研究组成部分、变量特性、丰富的数据类型等等等等以及对异步操作进行简单介绍</summary>
+    
+    
+    
+    <category term="WEB开发" scheme="http://aotusoft.github.io/categories/WEB%E5%BC%80%E5%8F%91/"/>
+    
+    
+    <category term="JavaScript" scheme="http://aotusoft.github.io/tags/JavaScript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>CSS样式表之探索</title>
+    <link href="http://aotusoft.github.io/2023/11/19/exploring-css/"/>
+    <id>http://aotusoft.github.io/2023/11/19/exploring-css/</id>
+    <published>2023-11-19T03:01:40.000Z</published>
+    <updated>2023-11-22T10:04:45.694Z</updated>
+    
+    
+    <summary type="html">CSS（层叠样式表）是一种用于描述文档样式（包括布局、颜色、字体等）的标记语言。它是前端开发中不可或缺的一部分，通过选择器和属性，可以精确控制网页元素的外观和排版。CSS的设计理念是分离样式和内容，使得页面结构更清晰，样式更易维护。以上是客套话，让我说：我最喜欢CSS</summary>
+    
+    
+    
+    <category term="WEB开发" scheme="http://aotusoft.github.io/categories/WEB%E5%BC%80%E5%8F%91/"/>
+    
+    
+    <category term="CSS" scheme="http://aotusoft.github.io/tags/CSS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>一文搞懂 HTML 骨架标签都有哪些含义</title>
+    <link href="http://aotusoft.github.io/2023/11/18/xiuxiu-html/"/>
+    <id>http://aotusoft.github.io/2023/11/18/xiuxiu-html/</id>
+    <published>2023-11-18T03:01:40.000Z</published>
+    <updated>2023-11-22T11:04:55.533Z</updated>
+    
+    
+    <summary type="html">这是WEB开发的第一篇文章，但却是最后一篇发出的。**HTML是超文本标记语言**。so，HTML不是编程语言，人家是**标记语言**，你们给我注意点。标题是网上复制的🤪</summary>
+    
+    
+    
+    <category term="WEB开发" scheme="http://aotusoft.github.io/categories/WEB%E5%BC%80%E5%8F%91/"/>
+    
+    
+    <category term="HTML" scheme="http://aotusoft.github.io/tags/HTML/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="http://aotusoft.github.io/2023/11/18/hello-world/"/>
+    <id>http://aotusoft.github.io/2023/11/18/hello-world/</id>
+    <published>2023-11-17T16:00:00.000Z</published>
+    <updated>2023-11-22T06:27:07.395Z</updated>
+    
+    
+    <summary type="html">Hexo 的 Next 主题默认是首页显示你每篇文章的全文内容，那么要如何设置只显示部分呢？正如你现在看到的本篇文章，只显示到这里。</summary>
+    
+    
+    
+    <category term="欢迎" scheme="http://aotusoft.github.io/categories/%E6%AC%A2%E8%BF%8E/"/>
+    
+    
+    <category term="blog" scheme="http://aotusoft.github.io/tags/blog/"/>
+    
+    <category term="welcome" scheme="http://aotusoft.github.io/tags/welcome/"/>
+    
+  </entry>
+  
+</feed>
