@@ -17,7 +17,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"aotusoft.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"right","width":320,"display":"post","padding":18,"offset":40},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"aotusoft.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"right","width":320,"display":"post","padding":18,"offset":40},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
   <meta name="description" content="本文讲了两个框架，jQuery 和 Echarts。剩下的交给全文吧...">
@@ -34,7 +34,7 @@
 <meta property="og:image" content="http://aotusoft.github.io/images/framework/%E9%A5%BC%E5%9B%BE.png">
 <meta property="og:image" content="http://aotusoft.github.io/images/framework/%E5%8D%97%E4%B8%81%E6%A0%BC%E5%B0%94%E9%A5%BC%E5%9B%BE.png">
 <meta property="article:published_time" content="2023-11-23T02:11:20.000Z">
-<meta property="article:modified_time" content="2023-11-23T02:21:58.426Z">
+<meta property="article:modified_time" content="2023-11-23T08:54:35.058Z">
 <meta property="article:author" content="Onei">
 <meta property="article:tag" content="jquery">
 <meta property="article:tag" content="echarts">
@@ -112,6 +112,7 @@
 
   <div class="site-nav-right">
     <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
 </div>
@@ -136,25 +137,53 @@
     <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
 
   </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
         <li class="menu-item menu-item-archives">
 
     <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>储物柜</a>
 
   </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>翻箱倒柜
+        </a>
+      </li>
   </ul>
 </nav>
 
 
 
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="找找..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
 
 </div>
     </header>
 
     
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
 
 
     <main class="main">
@@ -193,7 +222,7 @@
               <span class="post-meta-item-text">产出于</span>
               
 
-              <time title="创建时间：2023-11-23 10:11:20 / 修改时间：10:21:58" itemprop="dateCreated datePublished" datetime="2023-11-23T10:11:20+08:00">2023-11-23</time>
+              <time title="创建时间：2023-11-23 10:11:20 / 修改时间：16:54:35" itemprop="dateCreated datePublished" datetime="2023-11-23T10:11:20+08:00">2023-11-23</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -227,42 +256,48 @@
 
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">jQuery</span>(<span class="variable language_">document</span>).<span class="title function_">ready</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    xxx</span><br><span class="line">&#125;)</span><br><span class="line"><span class="title function_">jQuery</span>(<span class="variable language_">document</span>).<span class="title function_">ready</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    yyy</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
-<h2 id="jQuery-入口函数可简写为"><a href="#jQuery-入口函数可简写为" class="headerlink" title="jQuery 入口函数可简写为"></a>jQuery 入口函数可简写为</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    xxx</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<h1 id="css-方法"><a href="#css-方法" class="headerlink" title="css() 方法"></a>css() 方法</h1><ul>
-<li><code>css(&quot;属性名&quot;,&quot;属性值&quot;)</code></li>
+<p><strong>jQuery 入口函数可简写为</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    xxx</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h1 id="jQuery-选择器"><a href="#jQuery-选择器" class="headerlink" title="jQuery 选择器"></a>jQuery 选择器</h1><p><code>$(selector)</code></p>
+<h2 id="过滤选择器"><a href="#过滤选择器" class="headerlink" title="过滤选择器"></a>过滤选择器</h2><ul>
+<li><code>$(&quot;选择器:eq(x)&quot;) </code> 选择第x个元素</li>
+<li><code>$(&quot;选择器:lt(x)&quot;) </code> 选择小于x的元素</li>
+<li><code>$(&quot;选择器:gt(x)&quot;) </code> 选择大于x个元素</li>
+<li><code>$(&quot;选择器:odd&quot;) </code> 选择索引为奇数的元素</li>
+<li><code>$(&quot;选择器:even&quot;) </code> 选择索引为偶数的元素</li>
 </ul>
-<p>同时设置多个属性</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">css</span>(&#123;</span><br><span class="line">    <span class="attr">xxx</span>: xxx,</span><br><span class="line">    <span class="string">&quot;yy-zz&quot;</span>: <span class="string">&quot;yy-zz&quot;</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="筛选选择器"><a href="#筛选选择器" class="headerlink" title="筛选选择器"></a>筛选选择器</h2><ul>
+<li><code>$(selector).children()</code> 选择被选元素的子代元素<ul>
+<li><code>$(selector).children(&quot;.xxx&quot;)</code></li>
+</ul>
+</li>
+<li><code>$(selector).find(&quot;yyy&quot;) </code> 选择被选元素的后代为<code>yyy</code>的元素</li>
+<li><code>$(selector).parent()</code> 选择被选元素的父亲元素</li>
+<li><code>$(selector).parents()</code> 选择被选元素的祖先元素</li>
+<li><code>$(selector).siblings()</code> 选择被选元素的兄弟元素<ul>
+<li><code>$(selector).siblings(yyy)</code></li>
+</ul>
+</li>
+<li><code>$(selector).next()</code> 选择被选元素的下一个兄弟元素</li>
+<li><code>$(selector).nextAll()</code> 选择被选元素的下方所有兄弟元素</li>
+<li><code>$(selector).prev()</code> 选择被选元素的上个兄弟元素</li>
+<li><code>$(selector).prevAll()</code> 选择被选元素的所有上个兄弟元素</li>
+<li><code>$(selector).eq(n)</code> 选择被选元素的第<code>n</code>个元素</li>
+<li><code>$(selector).not(&#39;n选择器&#39;)</code> 选择被选元素的非<code>n</code>元素</li>
+</ul>
+<h1 id="样式设置"><a href="#样式设置" class="headerlink" title="样式设置"></a>样式设置</h1><ul>
+<li><code>$(selector).css(&quot;属性名&quot;,&quot;属性值&quot;)</code> 设置被选元素的样式属性<ul>
+<li><code>$(selector).css(&quot;属性名&quot;)</code> 获取被选元素的属性值</li>
+</ul>
+</li>
+</ul>
+<h2 id="同时设置多个属性"><a href="#同时设置多个属性" class="headerlink" title="同时设置多个属性"></a>同时设置多个属性</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">css</span>(&#123;</span><br><span class="line">    <span class="attr">xxx</span>: xxx,</span><br><span class="line">    <span class="string">&quot;yy-zz&quot;</span>: <span class="string">&quot;yy-zz&quot;</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li><code>rgb(&quot;属性名&quot;) 获取属性值</code><ul>
 <li>获取到的颜色为rgb样式</li>
 </ul>
 </li>
-</ul>
-<h2 id="过滤选择器"><a href="#过滤选择器" class="headerlink" title="过滤选择器"></a>过滤选择器</h2><ul>
-<li><code>$(&quot;li:eq(x)&quot;) </code> 选择第x个<code>li</code>元素</li>
-<li><code>$(&quot;li:odd&quot;) </code> 选择索引为奇数的<code>li</code>元素</li>
-<li><code>$(&quot;li:even&quot;) </code> 选择索引为偶数的<code>li</code>元素</li>
-</ul>
-<h2 id="筛选选择器"><a href="#筛选选择器" class="headerlink" title="筛选选择器"></a>筛选选择器</h2><ul>
-<li><code>$(&quot;xxx&quot;).children()</code> 选择<code>xxx</code>的子代元素<ul>
-<li>$(“xxx”).children(“.xxx”)</li>
-</ul>
-</li>
-<li><code>$(&quot;xxx&quot;).find(&quot;yyy&quot;) </code> 选择<code>xxx</code>的后代为<code>yyy</code>的元素</li>
-<li><code>$(&quot;xxx&quot;).parent()</code> 选择<code>xxx</code>的父亲元素</li>
-<li><code>$(&quot;xxx&quot;).parents()</code> 选择<code>xxx</code>的祖先元素</li>
-<li><code>$(&quot;xxx&quot;).siblings()</code> 选择<code>xxx</code>的兄弟元素<ul>
-<li><code>$(&quot;xxx&quot;).siblings(yyy)</code></li>
-</ul>
-</li>
-<li><code>$(&quot;xxx&quot;).next()</code> 选择<code>xxx</code>的下一个兄弟元素</li>
-<li><code>$(&quot;xxx&quot;).nextAll()</code> 选择<code>xxx</code>的所有下兄弟元素</li>
-<li><code>$(&quot;xxx&quot;).prev()</code> 选择<code>xxx</code>的上个兄弟元素</li>
-<li><code>$(&quot;xxx&quot;).prevAll()</code> 选择<code>xxx</code>的所有上个兄弟元素</li>
-<li><code>$(&quot;xxx&quot;).eq(n)</code> 选择第<code>n</code>个<code>xxx</code>元素</li>
 </ul>
 <h1 id="🔙-返回值"><a href="#🔙-返回值" class="headerlink" title="🔙 返回值"></a>🔙 返回值</h1><ul>
 <li>jQuery 返回 jQuery 对象</li>
@@ -272,6 +307,7 @@
 <li>隐藏&#x2F;显示<ul>
 <li>hide()</li>
 <li>show()</li>
+<li>toggle()</li>
 </ul>
 </li>
 <li>淡入&#x2F;淡出<ul>
@@ -281,25 +317,55 @@
 </ul>
 </li>
 <li>stop() 停止动画或效果</li>
-<li>自定义动画<ul>
-<li>animate()<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&quot;button&quot;</span>).<span class="title function_">click</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">    $(<span class="string">&quot;div&quot;</span>).<span class="title function_">animate</span>(&#123;</span><br><span class="line">      <span class="attr">left</span>:<span class="string">&#x27;250px&#x27;</span>,</span><br><span class="line">      <span class="attr">opacity</span>:<span class="string">&#x27;0.5&#x27;</span>,</span><br><span class="line">      <span class="attr">height</span>:<span class="string">&#x27;150px&#x27;</span>,</span><br><span class="line">      <span class="attr">width</span>:<span class="string">&#x27;150px&#x27;</span></span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></li>
+<li>自定义动画 异步  颜色效果无法生效<ul>
+<li>animate()</li>
 </ul>
 </li>
 </ul>
-<h1 id="事件"><a href="#事件" class="headerlink" title="事件"></a>事件</h1><h2 id="绑定"><a href="#绑定" class="headerlink" title="绑定"></a>绑定</h2><ul>
-<li><code>事件源.bind/on(&quot;事件类型&quot;,&quot;事件处理程序&quot;)</code></li>
-<li><code>事件源.bind/on(&#123;&quot;事件类型&quot;:&quot;事件处理程序&quot;,&quot;事件类型&quot;:&quot;事件处理程序&quot;&#125;)</code></li>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&quot;button&quot;</span>).<span class="title function_">click</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">    $(<span class="string">&quot;div&quot;</span>).<span class="title function_">animate</span>(&#123;</span><br><span class="line">      <span class="attr">left</span>:<span class="string">&#x27;250px&#x27;</span>,</span><br><span class="line">      <span class="attr">opacity</span>:<span class="string">&#x27;0.5&#x27;</span>,</span><br><span class="line">      <span class="comment">// fontSize: &#x27;18px&#x27;,</span></span><br><span class="line">      <span class="string">&#x27;font-size&#x27;</span>: <span class="string">&#x27;18px&#x27;</span>,</span><br><span class="line">      <span class="attr">width</span>:<span class="string">&#x27;150px&#x27;</span></span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">$(<span class="string">&quot;button&quot;</span>).<span class="title function_">click</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    $(<span class="string">&quot;div&quot;</span>).<span class="title function_">animate</span>(&#123;</span><br><span class="line">      <span class="attr">left</span>:<span class="string">&#x27;250px&#x27;</span>,</span><br><span class="line">      <span class="attr">opacity</span>:<span class="string">&#x27;0.5&#x27;</span>,</span><br><span class="line">      <span class="comment">// fontSize: &#x27;18px&#x27;,</span></span><br><span class="line">      <span class="string">&#x27;font-size&#x27;</span>: <span class="string">&#x27;18px&#x27;</span>,</span><br><span class="line">      <span class="attr">width</span>:<span class="string">&#x27;150px&#x27;</span></span><br><span class="line">    &#125;);</span><br><span class="line">&#125;,<span class="number">1000</span>,<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  <span class="comment">// 动画完成后</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h1 id="事件"><a href="#事件" class="headerlink" title="事件"></a>事件</h1><h2 id="绑定"><a href="#绑定" class="headerlink" title="绑定"></a>绑定</h2><p><code>事件源.bind(&quot;事件类型 事件类型&quot;,事件处理程序)</code></p>
+<ul>
+<li><code>事件源.bind/on(&quot;事件类型&quot;,事件处理程序)</code></li>
+<li><code>事件源.bind/on(&#123;&quot;事件类型&quot;:事件处理程序,&quot;事件类型&quot;:事件处理程序&#125;)</code></li>
 </ul>
+<p><strong>bind()不支持未来新添加元素的事件设置</strong><br>on() 可以对元素进行动态绑定，新增元素也会有事件监听</p>
+<p><code>$(selector).delegate(childSelector,event,data,function)</code></p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><em>childSelector</em></td>
+<td>必需。规定要添加事件处理程序的一个或多个子元素。</td>
+</tr>
+<tr>
+<td><em>event</em></td>
+<td>必需。规定添加到元素的一个或多个事件。<br>由空格分隔多个事件值。必须是有效的事件。</td>
+</tr>
+<tr>
+<td><em>data</em></td>
+<td>可选。规定传递到函数的额外数据。</td>
+</tr>
+<tr>
+<td><em>function</em></td>
+<td>必需。规定当事件发生时运行的函数。</td>
+</tr>
+</tbody></table>
+<p>delegate() 类似于on() </p>
 <h2 id="遍历"><a href="#遍历" class="headerlink" title="遍历"></a>遍历</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$.<span class="title function_">each</span>(<span class="string">&quot;数组/对象&quot;</span>, <span class="keyword">function</span> (<span class="params">index, item</span>) &#123;</span><br><span class="line">  xxx</span><br><span class="line">&#125;)</span><br><span class="line">$.<span class="title function_">each</span>(<span class="string">&quot;对象&quot;</span>, <span class="keyword">function</span> (<span class="params">key, value</span>) &#123;</span><br><span class="line">  xxx</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
 <h1 id="DOM-操作"><a href="#DOM-操作" class="headerlink" title="DOM 操作"></a>DOM 操作</h1><h2 id="尺寸修改"><a href="#尺寸修改" class="headerlink" title="尺寸修改"></a>尺寸修改</h2><ul>
-<li><code>$(xxx).width()</code></li>
-<li><code>$(xxx).height()</code></li>
-<li><code>$(xxx).outerWidth()</code><ul>
+<li><code>$(selector).width()</code></li>
+<li><code>$(selector).height()</code></li>
+<li><code>$(selector).outerWidth()</code><ul>
 <li>返回元素宽度(包括内边距和边框) offsetWidth</li>
 </ul>
 </li>
-<li><code>$(xxx).outerHeight()</code><ul>
+<li><code>$(selector).outerHeight()</code><ul>
 <li>返回元素高度(包括内边距和边框) offsetHeight</li>
 </ul>
 </li>
@@ -313,12 +379,12 @@
 </tr>
 </thead>
 <tbody><tr>
-<td>内部</td>
+<td><strong>内部</strong></td>
 <td>append()</td>
 <td>prepend()</td>
 </tr>
 <tr>
-<td>外部</td>
+<td><strong>外部</strong></td>
 <td>before()</td>
 <td>after()</td>
 </tr>
@@ -384,7 +450,7 @@
 
 <h2 id="legend-图例"><a href="#legend-图例" class="headerlink" title="legend 图例"></a>legend 图例</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> mCharts = echarts.<span class="title function_">init</span>(<span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;div&#x27;</span>))</span><br><span class="line"><span class="keyword">var</span> xDataArr = [<span class="string">&#x27;张三&#x27;</span>, <span class="string">&#x27;李四&#x27;</span>, <span class="string">&#x27;王五&#x27;</span>, <span class="string">&#x27;赵六&#x27;</span>, <span class="string">&#x27;王立红&#x27;</span>]</span><br><span class="line"><span class="keyword">var</span> yDataArr1 = [<span class="number">100</span>, <span class="number">59</span>, <span class="number">69</span>, <span class="number">92</span>, <span class="number">66</span>]</span><br><span class="line"><span class="keyword">var</span> yDataArr2 = [<span class="number">97</span>, <span class="number">49</span>, <span class="number">79</span>, <span class="number">88</span>, <span class="number">100</span>]</span><br><span class="line"><span class="keyword">var</span> option = &#123;</span><br><span class="line">  <span class="attr">legend</span>: &#123;</span><br><span class="line">    <span class="attr">data</span>: [<span class="string">&#x27;数学分析&#x27;</span>, <span class="string">&#x27;高等代数&#x27;</span>]</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">series</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">name</span>: <span class="string">&#x27;数学分析&#x27;</span>,</span><br><span class="line">      <span class="attr">type</span>: <span class="string">&#x27;bar&#x27;</span>,</span><br><span class="line">      <span class="attr">data</span>: yDataArr1</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">name</span>: <span class="string">&#x27;高等代数&#x27;</span>,</span><br><span class="line">      <span class="attr">type</span>: <span class="string">&#x27;bar&#x27;</span>,</span><br><span class="line">      <span class="attr">data</span>: yDataArr2</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<h1 id="柱状图"><a href="#柱状图" class="headerlink" title="柱状图"></a>柱状图</h1><p><img src="/images/framework/%E6%9F%B1%E7%8A%B6%E5%9B%BE.png" alt="柱状图"></p>
+<h1 id="柱状图"><a href="#柱状图" class="headerlink" title="柱状图"></a>柱状图</h1><p><img data-src="/images/framework/%E6%9F%B1%E7%8A%B6%E5%9B%BE.png" alt="柱状图"></p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 3. 创建 echarts 实例对象</span></span><br><span class="line"><span class="keyword">var</span> mCharts = echarts.<span class="title function_">init</span>(<span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&quot;div&quot;</span>));</span><br><span class="line"><span class="comment">// 4. 准备配置项</span></span><br><span class="line"><span class="keyword">var</span> option = &#123;</span><br><span class="line">  <span class="attr">xAxis</span>: &#123;</span><br><span class="line">    <span class="attr">type</span>: <span class="string">&quot;category&quot;</span>,</span><br><span class="line">    <span class="attr">data</span>: [<span class="string">&quot;张三&quot;</span>, <span class="string">&quot;李四&quot;</span>, <span class="string">&quot;王五&quot;</span>, <span class="string">&quot;赵六&quot;</span>],</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">yAxis</span>: &#123;</span><br><span class="line">    <span class="attr">type</span>: <span class="string">&quot;value&quot;</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">series</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">name</span>: <span class="string">&quot;数学分析&quot;</span>,</span><br><span class="line">      <span class="attr">type</span>: <span class="string">&quot;bar&quot;</span>,</span><br><span class="line">      <span class="attr">data</span>: [<span class="number">100</span>, <span class="number">59</span>, <span class="number">69</span>, <span class="number">92</span>],</span><br><span class="line">    &#125;,</span><br><span class="line">  ],</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// 5. 配置项设置给实例对象</span></span><br><span class="line">mCharts.<span class="title function_">setOption</span>(option);</span><br></pre></td></tr></table></figure>
 
 <h2 id="相关配置"><a href="#相关配置" class="headerlink" title="相关配置"></a>相关配置</h2><p><code>xAxis</code>： 直角坐标系中 x 轴<br><code>yAxis</code>： 直角坐标系中 y 轴<br><code>series</code>：系列列表。每个系列通过 type 决定自己的图表类型</p>
@@ -392,10 +458,10 @@
 <li>标记：最大值\最小值、平均值 —— <code>markPoint</code>、<code>markLine</code></li>
 <li>显示：数值显示、柱宽度、横向柱状图 —— <code>label</code>、<code>barWidth</code>、<code>xy 对调</code></li>
 </ul>
-<p><img src="/images/framework/%E6%9F%B1%E7%8A%B6%E5%9B%BEPlus.png" alt="柱状图Plus"></p>
+<p><img data-src="/images/framework/%E6%9F%B1%E7%8A%B6%E5%9B%BEPlus.png" alt="柱状图Plus"></p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">series</span>: [</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="string">&#x27;数学分析&#x27;</span>,</span><br><span class="line">    <span class="attr">type</span>: <span class="string">&#x27;bar&#x27;</span>,</span><br><span class="line">    <span class="attr">markPoint</span>: &#123;</span><br><span class="line">      <span class="attr">data</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">          <span class="attr">type</span>: <span class="string">&#x27;max&#x27;</span>, <span class="attr">name</span>: <span class="string">&#x27;最大值&#x27;</span></span><br><span class="line">        &#125;, &#123;</span><br><span class="line">          <span class="attr">type</span>: <span class="string">&#x27;min&#x27;</span>, <span class="attr">name</span>: <span class="string">&#x27;最小值&#x27;</span></span><br><span class="line">        &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">markLine</span>: &#123;</span><br><span class="line">      <span class="attr">data</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">          <span class="attr">type</span>: <span class="string">&#x27;average&#x27;</span>, <span class="attr">name</span>: <span class="string">&#x27;平均值&#x27;</span></span><br><span class="line">        &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">label</span>: &#123;</span><br><span class="line">      <span class="attr">show</span>: <span class="literal">true</span>,</span><br><span class="line">      <span class="attr">rotate</span>: <span class="number">60</span>,</span><br><span class="line">      <span class="attr">position</span>: <span class="string">&#x27;inside&#x27;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">barWidth</span>: <span class="string">&#x27;50%&#x27;</span>,</span><br><span class="line">    <span class="attr">data</span>: yDataArr</span><br><span class="line">  &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
 
-<h1 id="折线图"><a href="#折线图" class="headerlink" title="折线图"></a>折线图</h1><p><img src="/images/framework/%E6%8A%98%E7%BA%BF%E5%9B%BE.png" alt="折线图"></p>
+<h1 id="折线图"><a href="#折线图" class="headerlink" title="折线图"></a>折线图</h1><p><img data-src="/images/framework/%E6%8A%98%E7%BA%BF%E5%9B%BE.png" alt="折线图"></p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> mCharts = echarts.<span class="title function_">init</span>(<span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;div&#x27;</span>))</span><br><span class="line"><span class="keyword">var</span> xDataArr = [<span class="string">&#x27;1月&#x27;</span>, <span class="string">&#x27;2月&#x27;</span>, <span class="string">&#x27;3月&#x27;</span>, <span class="string">&#x27;4月&#x27;</span>, <span class="string">&#x27;5月&#x27;</span>, <span class="string">&#x27;6月&#x27;</span>, <span class="string">&#x27;7月&#x27;</span>, <span class="string">&#x27;8月&#x27;</span>, <span class="string">&#x27;9月&#x27;</span>, <span class="string">&#x27;10月&#x27;</span>, <span class="string">&#x27;11月&#x27;</span>, <span class="string">&#x27;12月&#x27;</span>]</span><br><span class="line"><span class="keyword">var</span> yDataArr = [<span class="number">3000</span>, <span class="number">2800</span>, <span class="number">900</span>, <span class="number">1000</span>, <span class="number">800</span>, <span class="number">700</span>, <span class="number">1400</span>, <span class="number">1300</span>, <span class="number">900</span>, <span class="number">1000</span>, <span class="number">800</span>, <span class="number">600</span>]</span><br><span class="line"><span class="keyword">var</span> option = &#123;</span><br><span class="line">  <span class="attr">xAxis</span>: &#123;</span><br><span class="line">    <span class="attr">type</span>: <span class="string">&#x27;category&#x27;</span>,</span><br><span class="line">    <span class="attr">data</span>: xDataArr</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">yAxis</span>: &#123;</span><br><span class="line">    <span class="attr">type</span>: <span class="string">&#x27;value&#x27;</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">series</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">name</span>: <span class="string">&#x27;康师傅&#x27;</span>,</span><br><span class="line">      <span class="attr">data</span>: yDataArr,</span><br><span class="line">      <span class="attr">type</span>: <span class="string">&#x27;line&#x27;</span> 		<span class="comment">// 折线图</span></span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br><span class="line">mCharts.<span class="title function_">setOption</span>(option)</span><br></pre></td></tr></table></figure>
 
 <h2 id="常见效果-1"><a href="#常见效果-1" class="headerlink" title="常见效果"></a>常见效果</h2><ul>
@@ -406,10 +472,10 @@
 <li>缩放：脱离 0 值的比率 —— <code>scale</code></li>
 <li>堆叠图： <code>stack</code></li>
 </ul>
-<p><img src="/images/framework/%E6%8A%98%E7%BA%BF%E5%9B%BEPlus.png" alt="折线图Plus"></p>
+<p><img data-src="/images/framework/%E6%8A%98%E7%BA%BF%E5%9B%BEPlus.png" alt="折线图Plus"></p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> option = &#123;</span><br><span class="line">  <span class="attr">xAxis</span>: &#123;</span><br><span class="line">    <span class="attr">type</span>: <span class="string">&#x27;category&#x27;</span>,</span><br><span class="line">    <span class="attr">data</span>: xDataArr,</span><br><span class="line">    <span class="attr">boundaryGap</span>: <span class="literal">false</span>		<span class="comment">// 紧挨边缘</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">yAxis</span>: &#123;</span><br><span class="line">    <span class="attr">type</span>: <span class="string">&#x27;value&#x27;</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">series</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">name</span>: <span class="string">&#x27;康师傅&#x27;</span>,</span><br><span class="line">      <span class="attr">data</span>: yDataArr,</span><br><span class="line">      <span class="attr">type</span>: <span class="string">&#x27;line&#x27;</span>, 		<span class="comment">// 折线图</span></span><br><span class="line">      <span class="attr">markPoint</span>: &#123;</span><br><span class="line">        <span class="attr">data</span>: [</span><br><span class="line">          &#123;</span><br><span class="line">            <span class="attr">type</span>: <span class="string">&#x27;max&#x27;</span></span><br><span class="line">          &#125;,</span><br><span class="line">          &#123;</span><br><span class="line">            <span class="attr">type</span>: <span class="string">&#x27;min&#x27;</span></span><br><span class="line">          &#125;</span><br><span class="line">        ]</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="attr">markLine</span>: &#123;</span><br><span class="line">        <span class="attr">data</span>: [</span><br><span class="line">          &#123;</span><br><span class="line">            <span class="attr">type</span>: <span class="string">&#x27;average&#x27;</span></span><br><span class="line">          &#125;</span><br><span class="line">        ]</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="attr">markArea</span>: &#123;</span><br><span class="line">        <span class="attr">data</span>: [</span><br><span class="line">          [</span><br><span class="line">            &#123;</span><br><span class="line">              <span class="attr">xAxis</span>: <span class="string">&#x27;1月&#x27;</span></span><br><span class="line">            &#125;, </span><br><span class="line">            &#123;</span><br><span class="line">              <span class="attr">xAxis</span>: <span class="string">&#x27;2月&#x27;</span></span><br><span class="line">            &#125;</span><br><span class="line">          ]</span><br><span class="line">        ]</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="attr">smooth</span>: <span class="literal">true</span>,     	<span class="comment">// 线条平滑</span></span><br><span class="line">      <span class="attr">lineStyle</span>: &#123;      	<span class="comment">// 线条样式</span></span><br><span class="line">        <span class="attr">color</span>: <span class="string">&#x27;green&#x27;</span>,</span><br><span class="line">        <span class="attr">type</span>: <span class="string">&#x27;dashed&#x27;</span>  	<span class="comment">// dotted solid</span></span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="attr">areaStyle</span>: &#123;</span><br><span class="line">        <span class="attr">color</span>: <span class="string">&#x27;skyblue&#x27;</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h1 id="饼图"><a href="#饼图" class="headerlink" title="饼图"></a>饼图</h1><p><img src="/images/framework/%E9%A5%BC%E5%9B%BE.png" alt="饼图"></p>
+<h1 id="饼图"><a href="#饼图" class="headerlink" title="饼图"></a>饼图</h1><p><img data-src="/images/framework/%E9%A5%BC%E5%9B%BE.png" alt="饼图"></p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> mCharts = echarts.<span class="title function_">init</span>(<span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&quot;div&quot;</span>));</span><br><span class="line"><span class="keyword">var</span> pieData = [</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="string">&quot;某宝&quot;</span>,</span><br><span class="line">    <span class="attr">value</span>: <span class="number">12231</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="string">&quot;啊东&quot;</span>,</span><br><span class="line">    <span class="attr">value</span>: <span class="number">23636</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="string">&quot;拼夕夕&quot;</span>,</span><br><span class="line">    <span class="attr">value</span>: <span class="number">16364</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="string">&quot;舔狗house&quot;</span>,</span><br><span class="line">    <span class="attr">value</span>: <span class="number">7231</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">];</span><br><span class="line"><span class="keyword">var</span> option = &#123;</span><br><span class="line">  <span class="attr">series</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">type</span>: <span class="string">&quot;pie&quot;</span>,</span><br><span class="line">      <span class="attr">data</span>: pieData,</span><br><span class="line">    &#125;,</span><br><span class="line">  ],</span><br><span class="line">&#125;;</span><br><span class="line">mCharts.<span class="title function_">setOption</span>(option);</span><br></pre></td></tr></table></figure>
 
 <h2 id="常见效果-2"><a href="#常见效果-2" class="headerlink" title="常见效果"></a>常见效果</h2><ul>
@@ -418,7 +484,7 @@
 <li>南丁格尔图<br>饼图各个区域半径随数值变化。<code>roseType: &#39;radius&#39;</code> 。</li>
 <li>选中效果<br>选中模式 <code>selectedMode: &#39;single&#39;</code>、 <code>selectedMode: &#39;multiple&#39;</code><br>选中偏移量 <code>selectedOffset</code></li>
 </ul>
-<p><img src="/images/framework/%E5%8D%97%E4%B8%81%E6%A0%BC%E5%B0%94%E9%A5%BC%E5%9B%BE.png" alt="南丁格尔饼图"></p>
+<p><img data-src="/images/framework/%E5%8D%97%E4%B8%81%E6%A0%BC%E5%B0%94%E9%A5%BC%E5%9B%BE.png" alt="南丁格尔饼图"></p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> option = &#123;</span><br><span class="line">  <span class="attr">series</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">type</span>: <span class="string">&#x27;pie&#x27;</span>,</span><br><span class="line">      <span class="attr">data</span>: pieData,</span><br><span class="line">      <span class="attr">label</span>: &#123;</span><br><span class="line">        <span class="attr">show</span>: <span class="literal">true</span>,                 <span class="comment">// 显示文字</span></span><br><span class="line">        <span class="attr">formatter</span>: <span class="function">(<span class="params">arg</span>) =&gt;</span> &#123;		<span class="comment">// 格式化文字内容</span></span><br><span class="line">          <span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;arg.name&#125;</span>：<span class="subst">$&#123;arg.value&#125;</span> 元 \n\n<span class="subst">$&#123;arg.percent&#125;</span>%`</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="comment">// radius: 100,               // 饼图半径</span></span><br><span class="line">      <span class="comment">// radius: [&#x27;50%&#x27;, &#x27;75%&#x27;]     // 圆环</span></span><br><span class="line">      <span class="attr">roseType</span>: <span class="string">&#x27;radius&#x27;</span>,           <span class="comment">// 南丁格尔图</span></span><br><span class="line">      <span class="attr">selectedMode</span>: <span class="string">&#x27;single&#x27;</span>,       <span class="comment">// 选中效果 (single,multiple)</span></span><br><span class="line">      <span class="attr">selectedOffset</span>: <span class="number">30</span>,</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
     </div>
 
@@ -500,7 +566,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%F0%9F%94%8D-jQuery"><span class="nav-number">1.</span> <span class="nav-text">🔍 jQuery</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%F0%9F%9A%AA-%E5%85%A5%E5%8F%A3%E5%87%BD%E6%95%B0"><span class="nav-number">2.</span> <span class="nav-text">🚪 入口函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#jQuery-%E5%85%A5%E5%8F%A3%E5%87%BD%E6%95%B0%E5%8F%AF%E7%AE%80%E5%86%99%E4%B8%BA"><span class="nav-number">2.1.</span> <span class="nav-text">jQuery 入口函数可简写为</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#css-%E6%96%B9%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">css() 方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%87%E6%BB%A4%E9%80%89%E6%8B%A9%E5%99%A8"><span class="nav-number">3.1.</span> <span class="nav-text">过滤选择器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AD%9B%E9%80%89%E9%80%89%E6%8B%A9%E5%99%A8"><span class="nav-number">3.2.</span> <span class="nav-text">筛选选择器</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%F0%9F%94%99-%E8%BF%94%E5%9B%9E%E5%80%BC"><span class="nav-number">4.</span> <span class="nav-text">🔙 返回值</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8A%A8%E7%94%BB"><span class="nav-number">5.</span> <span class="nav-text">动画</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6"><span class="nav-number">6.</span> <span class="nav-text">事件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%91%E5%AE%9A"><span class="nav-number">6.1.</span> <span class="nav-text">绑定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%81%8D%E5%8E%86"><span class="nav-number">6.2.</span> <span class="nav-text">遍历</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DOM-%E6%93%8D%E4%BD%9C"><span class="nav-number">7.</span> <span class="nav-text">DOM 操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%BA%E5%AF%B8%E4%BF%AE%E6%94%B9"><span class="nav-number">7.1.</span> <span class="nav-text">尺寸修改</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0"><span class="nav-number">7.2.</span> <span class="nav-text">添加</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A0%E9%99%A4"><span class="nav-number">7.3.</span> <span class="nav-text">删除</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9"><span class="nav-number">7.4.</span> <span class="nav-text">修改</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Echarts"><span class="nav-number">8.</span> <span class="nav-text">Echarts</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B"><span class="nav-number">9.</span> <span class="nav-text">快速上手</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%80%9A%E7%94%A8%E9%85%8D%E7%BD%AE"><span class="nav-number">10.</span> <span class="nav-text">通用配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#title-%E6%A0%87%E9%A2%98"><span class="nav-number">10.1.</span> <span class="nav-text">title 标题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tooltip-%E6%8F%90%E7%A4%BA%E6%A1%86"><span class="nav-number">10.2.</span> <span class="nav-text">tooltip 提示框</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#toolbox-%E5%B7%A5%E5%85%B7%E6%A0%8F"><span class="nav-number">10.3.</span> <span class="nav-text">toolbox 工具栏</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#legend-%E5%9B%BE%E4%BE%8B"><span class="nav-number">10.4.</span> <span class="nav-text">legend 图例</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9F%B1%E7%8A%B6%E5%9B%BE"><span class="nav-number">11.</span> <span class="nav-text">柱状图</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE"><span class="nav-number">11.1.</span> <span class="nav-text">相关配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E6%95%88%E6%9E%9C"><span class="nav-number">11.2.</span> <span class="nav-text">常见效果</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8A%98%E7%BA%BF%E5%9B%BE"><span class="nav-number">12.</span> <span class="nav-text">折线图</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E6%95%88%E6%9E%9C-1"><span class="nav-number">12.1.</span> <span class="nav-text">常见效果</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A5%BC%E5%9B%BE"><span class="nav-number">13.</span> <span class="nav-text">饼图</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E6%95%88%E6%9E%9C-2"><span class="nav-number">13.1.</span> <span class="nav-text">常见效果</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%F0%9F%94%8D-jQuery"><span class="nav-number">1.</span> <span class="nav-text">🔍 jQuery</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%F0%9F%9A%AA-%E5%85%A5%E5%8F%A3%E5%87%BD%E6%95%B0"><span class="nav-number">2.</span> <span class="nav-text">🚪 入口函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#jQuery-%E9%80%89%E6%8B%A9%E5%99%A8"><span class="nav-number">3.</span> <span class="nav-text">jQuery 选择器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%87%E6%BB%A4%E9%80%89%E6%8B%A9%E5%99%A8"><span class="nav-number">3.1.</span> <span class="nav-text">过滤选择器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AD%9B%E9%80%89%E9%80%89%E6%8B%A9%E5%99%A8"><span class="nav-number">3.2.</span> <span class="nav-text">筛选选择器</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A0%B7%E5%BC%8F%E8%AE%BE%E7%BD%AE"><span class="nav-number">4.</span> <span class="nav-text">样式设置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8C%E6%97%B6%E8%AE%BE%E7%BD%AE%E5%A4%9A%E4%B8%AA%E5%B1%9E%E6%80%A7"><span class="nav-number">4.1.</span> <span class="nav-text">同时设置多个属性</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%F0%9F%94%99-%E8%BF%94%E5%9B%9E%E5%80%BC"><span class="nav-number">5.</span> <span class="nav-text">🔙 返回值</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8A%A8%E7%94%BB"><span class="nav-number">6.</span> <span class="nav-text">动画</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6"><span class="nav-number">7.</span> <span class="nav-text">事件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%91%E5%AE%9A"><span class="nav-number">7.1.</span> <span class="nav-text">绑定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%81%8D%E5%8E%86"><span class="nav-number">7.2.</span> <span class="nav-text">遍历</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DOM-%E6%93%8D%E4%BD%9C"><span class="nav-number">8.</span> <span class="nav-text">DOM 操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%BA%E5%AF%B8%E4%BF%AE%E6%94%B9"><span class="nav-number">8.1.</span> <span class="nav-text">尺寸修改</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0"><span class="nav-number">8.2.</span> <span class="nav-text">添加</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A0%E9%99%A4"><span class="nav-number">8.3.</span> <span class="nav-text">删除</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9"><span class="nav-number">8.4.</span> <span class="nav-text">修改</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Echarts"><span class="nav-number">9.</span> <span class="nav-text">Echarts</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B"><span class="nav-number">10.</span> <span class="nav-text">快速上手</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%80%9A%E7%94%A8%E9%85%8D%E7%BD%AE"><span class="nav-number">11.</span> <span class="nav-text">通用配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#title-%E6%A0%87%E9%A2%98"><span class="nav-number">11.1.</span> <span class="nav-text">title 标题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tooltip-%E6%8F%90%E7%A4%BA%E6%A1%86"><span class="nav-number">11.2.</span> <span class="nav-text">tooltip 提示框</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#toolbox-%E5%B7%A5%E5%85%B7%E6%A0%8F"><span class="nav-number">11.3.</span> <span class="nav-text">toolbox 工具栏</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#legend-%E5%9B%BE%E4%BE%8B"><span class="nav-number">11.4.</span> <span class="nav-text">legend 图例</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9F%B1%E7%8A%B6%E5%9B%BE"><span class="nav-number">12.</span> <span class="nav-text">柱状图</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE"><span class="nav-number">12.1.</span> <span class="nav-text">相关配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E6%95%88%E6%9E%9C"><span class="nav-number">12.2.</span> <span class="nav-text">常见效果</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8A%98%E7%BA%BF%E5%9B%BE"><span class="nav-number">13.</span> <span class="nav-text">折线图</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E6%95%88%E6%9E%9C-1"><span class="nav-number">13.1.</span> <span class="nav-text">常见效果</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A5%BC%E5%9B%BE"><span class="nav-number">14.</span> <span class="nav-text">饼图</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E6%95%88%E6%9E%9C-2"><span class="nav-number">14.1.</span> <span class="nav-text">常见效果</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -532,6 +598,10 @@
 
 
       </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
 
     </div>
   </aside>
@@ -573,7 +643,9 @@
   </div>
 
   
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
   <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
 
@@ -588,11 +660,18 @@
 <script src="/js/next-boot.js"></script>
 
 
+  <script defer src="/lib/three/three.min.js"></script>
+    <script defer src="/lib/three/three-waves.min.js"></script>
+    <script defer src="/lib/three/canvas_lines.min.js"></script>
 
 
   
 
 
+
+
+  
+<script src="/js/local-search.js"></script>
 
 
 
