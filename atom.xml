@@ -76,25 +76,6 @@
   </entry>
   
   <entry>
-    <title>JavaScript 从入门到放弃：特点、作用、关系、组成、变量、数据类型简析</title>
-    <link href="http://aotusoft.github.io/2023/11/19/JavaScript-I/"/>
-    <id>http://aotusoft.github.io/2023/11/19/JavaScript-I/</id>
-    <published>2023-11-19T03:01:40.000Z</published>
-    <updated>2023-11-22T11:19:49.264Z</updated>
-    
-    
-    <summary type="html">~~JavaScript 从入门到放弃~~初探JavaScript，这篇文章记录了JavaScript其特点、作用、与Java的关系，深入研究组成部分、变量特性、丰富的数据类型等等等等以及对异步操作进行简单介绍</summary>
-    
-    
-    
-    <category term="WEB开发" scheme="http://aotusoft.github.io/categories/WEB%E5%BC%80%E5%8F%91/"/>
-    
-    
-    <category term="JavaScript" scheme="http://aotusoft.github.io/tags/JavaScript/"/>
-    
-  </entry>
-  
-  <entry>
     <title>CSS样式表之探索</title>
     <link href="http://aotusoft.github.io/2023/11/19/exploring-css/"/>
     <id>http://aotusoft.github.io/2023/11/19/exploring-css/</id>
@@ -110,6 +91,25 @@
     
     
     <category term="CSS" scheme="http://aotusoft.github.io/tags/CSS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>JavaScript 从入门到放弃：特点、作用、关系、组成、变量、数据类型简析</title>
+    <link href="http://aotusoft.github.io/2023/11/19/JavaScript-I/"/>
+    <id>http://aotusoft.github.io/2023/11/19/JavaScript-I/</id>
+    <published>2023-11-19T03:01:40.000Z</published>
+    <updated>2023-11-22T11:19:49.264Z</updated>
+    
+    
+    <summary type="html">~~JavaScript 从入门到放弃~~初探JavaScript，这篇文章记录了JavaScript其特点、作用、与Java的关系，深入研究组成部分、变量特性、丰富的数据类型等等等等以及对异步操作进行简单介绍</summary>
+    
+    
+    
+    <category term="WEB开发" scheme="http://aotusoft.github.io/categories/WEB%E5%BC%80%E5%8F%91/"/>
+    
+    
+    <category term="JavaScript" scheme="http://aotusoft.github.io/tags/JavaScript/"/>
     
   </entry>
   

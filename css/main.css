@@ -10,7 +10,7 @@
   --brand-hover-color: #fff;
   --table-row-odd-bg-color: #f9f9f9;
   --table-row-hover-bg-color: #f5f5f5;
-  --menu-item-bg-color: #f5f5f5;
+  --menu-item-bg-color: #ffdbcd;
   --btn-default-bg: #ffdbcd;
   --btn-default-color: #cc5f29;
   --btn-default-border-color: #cc5f29;
@@ -167,8 +167,8 @@ template {
   display: none;
 }
 ::selection {
-  background: #262a30;
-  color: #eee;
+  background: #cc5f29;
+  color: #ffdbcd;
 }
 html,
 body {
@@ -221,7 +221,7 @@ p {
 }
 a,
 span.exturl {
-  border-bottom: 1px solid #ffb596;
+  border-bottom: 1px solid #999;
   color: var(--link-color);
   outline: 0;
   text-decoration: none;
@@ -937,7 +937,6 @@ pre .javascript .function {
 }
 .header {
   background: transparent;
-  height: 100px;
 }
 .header-inner {
   margin: 0 auto;
@@ -989,7 +988,7 @@ pre .javascript .function {
   margin: 0;
 }
 .site-subtitle {
-  color: #ffb596;
+  color: #999;
   font-size: 0.9em;
   margin: 10px 0;
 }
@@ -1114,7 +1113,7 @@ pre .javascript .function {
   }
 }
 .sidebar-inner {
-  color: #ffb596;
+  color: #999;
   padding: 18px 10px;
   text-align: center;
 }
@@ -1147,7 +1146,7 @@ pre .javascript .function {
   text-align: center;
 }
 .site-description {
-  color: #ffb596;
+  color: #999;
   font-size: 0.9em;
   margin-top: 0;
   text-align: center;
@@ -1166,7 +1165,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #daa6cd;
+  background: #ab6979;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -1362,11 +1361,11 @@ pre .javascript .function {
   text-align: center;
 }
 .site-state-item-name {
-  color: #ffb596;
+  color: #999;
   font-size: 0.9em;
 }
 .footer {
-  color: #ffb596;
+  color: #999;
   font-size: 0.95em;
   padding: 20px 0;
 }
@@ -1511,7 +1510,7 @@ pre .javascript .function {
 }
 .post-body .image-caption,
 .post-body .figure .caption {
-  color: #ffb596;
+  color: #999;
   font-size: 0.95em;
   font-weight: bold;
   line-height: 1;
@@ -1555,7 +1554,7 @@ pre .javascript .function {
   position: relative;
 }
 .posts-collapse .collection-title::before {
-  background: #ffb596;
+  background: #999;
   border: 1px solid #fff;
   border-radius: 50%;
   content: ' ';
@@ -1793,7 +1792,7 @@ pre .javascript .function {
   margin-left: 5px;
 }
 .posts-expand .post-meta {
-  color: #ffb596;
+  color: #999;
   font-family: 'Noto Sans SC', "PingFang SC", "Microsoft YaHei", sans-serif;
   font-size: 0.875em;
   margin: 3px 0 60px 0;
@@ -1804,7 +1803,7 @@ pre .javascript .function {
   margin-top: 2px;
 }
 .posts-expand .post-meta time {
-  border-bottom: 1px dashed #ffb596;
+  border-bottom: 1px dashed #999;
   cursor: pointer;
 }
 .post-meta .post-meta-item + .post-meta-item::before {
