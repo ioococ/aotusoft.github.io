@@ -221,7 +221,7 @@ p {
 }
 a,
 span.exturl {
-  border-bottom: 1px solid #999;
+  border-bottom: 1px solid #ffb596;
   color: var(--link-color);
   outline: 0;
   text-decoration: none;
@@ -988,7 +988,7 @@ pre .javascript .function {
   margin: 0;
 }
 .site-subtitle {
-  color: #999;
+  color: #ffb596;
   font-size: 0.9em;
   margin: 10px 0;
 }
@@ -1146,7 +1146,7 @@ pre .javascript .function {
   text-align: center;
 }
 .site-description {
-  color: #999;
+  color: #ffb596;
   font-size: 0.9em;
   margin-top: 0;
   text-align: center;
@@ -1165,7 +1165,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #ab6979;
+  background: #49ffe8;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -1361,7 +1361,7 @@ pre .javascript .function {
   text-align: center;
 }
 .site-state-item-name {
-  color: #999;
+  color: #ffb596;
   font-size: 0.9em;
 }
 .footer {
@@ -1792,7 +1792,7 @@ pre .javascript .function {
   margin-left: 5px;
 }
 .posts-expand .post-meta {
-  color: #999;
+  color: #ffb596;
   font-family: 'Noto Sans SC', "PingFang SC", "Microsoft YaHei", sans-serif;
   font-size: 0.875em;
   margin: 3px 0 60px 0;
@@ -1803,7 +1803,7 @@ pre .javascript .function {
   margin-top: 2px;
 }
 .posts-expand .post-meta time {
-  border-bottom: 1px dashed #999;
+  border-bottom: 1px dashed #ffb596;
   cursor: pointer;
 }
 .post-meta .post-meta-item + .post-meta-item::before {

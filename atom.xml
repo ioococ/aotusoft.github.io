@@ -76,25 +76,6 @@
   </entry>
   
   <entry>
-    <title>CSS样式表之探索</title>
-    <link href="http://aotusoft.github.io/2023/11/19/exploring-css/"/>
-    <id>http://aotusoft.github.io/2023/11/19/exploring-css/</id>
-    <published>2023-11-19T03:01:40.000Z</published>
-    <updated>2023-11-22T10:04:45.694Z</updated>
-    
-    
-    <summary type="html">CSS（层叠样式表）是一种用于描述文档样式（包括布局、颜色、字体等）的标记语言。它是前端开发中不可或缺的一部分，通过选择器和属性，可以精确控制网页元素的外观和排版。CSS的设计理念是分离样式和内容，使得页面结构更清晰，样式更易维护。以上是客套话，让我说：我最喜欢CSS</summary>
-    
-    
-    
-    <category term="WEB开发" scheme="http://aotusoft.github.io/categories/WEB%E5%BC%80%E5%8F%91/"/>
-    
-    
-    <category term="CSS" scheme="http://aotusoft.github.io/tags/CSS/"/>
-    
-  </entry>
-  
-  <entry>
     <title>JavaScript 从入门到放弃：特点、作用、关系、组成、变量、数据类型简析</title>
     <link href="http://aotusoft.github.io/2023/11/19/JavaScript-I/"/>
     <id>http://aotusoft.github.io/2023/11/19/JavaScript-I/</id>
@@ -110,6 +91,25 @@
     
     
     <category term="JavaScript" scheme="http://aotusoft.github.io/tags/JavaScript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>CSS样式表之探索</title>
+    <link href="http://aotusoft.github.io/2023/11/19/exploring-css/"/>
+    <id>http://aotusoft.github.io/2023/11/19/exploring-css/</id>
+    <published>2023-11-19T03:01:40.000Z</published>
+    <updated>2023-11-22T10:04:45.694Z</updated>
+    
+    
+    <summary type="html">CSS（层叠样式表）是一种用于描述文档样式（包括布局、颜色、字体等）的标记语言。它是前端开发中不可或缺的一部分，通过选择器和属性，可以精确控制网页元素的外观和排版。CSS的设计理念是分离样式和内容，使得页面结构更清晰，样式更易维护。以上是客套话，让我说：我最喜欢CSS</summary>
+    
+    
+    
+    <category term="WEB开发" scheme="http://aotusoft.github.io/categories/WEB%E5%BC%80%E5%8F%91/"/>
+    
+    
+    <category term="CSS" scheme="http://aotusoft.github.io/tags/CSS/"/>
     
   </entry>
   
