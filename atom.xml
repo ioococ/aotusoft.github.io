@@ -6,7 +6,7 @@
   <link href="http://aotusoft.github.io/atom.xml" rel="self"/>
   
   <link href="http://aotusoft.github.io/"/>
-  <updated>2023-11-23T08:54:35.058Z</updated>
+  <updated>2023-11-24T10:01:52.668Z</updated>
   <id>http://aotusoft.github.io/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>JavaScript 从入门到放弃：Ajax</title>
+    <link href="http://aotusoft.github.io/2023/11/24/Ajax/"/>
+    <id>http://aotusoft.github.io/2023/11/24/Ajax/</id>
+    <published>2023-11-24T09:30:40.000Z</published>
+    <updated>2023-11-24T10:01:52.668Z</updated>
+    
+    
+    <summary type="html">爆肝千字长文，详细整理Ajax由来、用法以及和jQuery结合用法。对了，还稍稍介绍了一下JSON</summary>
+    
+    
+    
+    <category term="WEB开发" scheme="http://aotusoft.github.io/categories/WEB%E5%BC%80%E5%8F%91/"/>
+    
+    
+    <category term="JavaScript" scheme="http://aotusoft.github.io/tags/JavaScript/"/>
+    
+    <category term="Ajax" scheme="http://aotusoft.github.io/tags/Ajax/"/>
+    
+  </entry>
   
   <entry>
     <title>JavaScript 从入门到放弃：框架其实很简单</title>
@@ -61,10 +82,10 @@
     <link href="http://aotusoft.github.io/2023/11/22/JavaScript-II/"/>
     <id>http://aotusoft.github.io/2023/11/22/JavaScript-II/</id>
     <published>2023-11-22T06:00:00.000Z</published>
-    <updated>2023-11-22T10:03:06.542Z</updated>
+    <updated>2023-11-24T09:28:26.834Z</updated>
     
     
-    <summary type="html">这篇是 JavaScript 从入门到放弃的第二节，JavaScript 并不是面向对象而是基于对象。JavaScript 有许多与面向对象的相似之处，例如封装和继承。有Java基础后再看 JavaScript，发现这语言真灵活~~（语法稀烂）~~</summary>
+    <summary type="html">这篇是 JavaScript 从入门到放弃的第二节，JavaScript 并不是面向对象而是基于对象。JavaScript 有许多与面向对象的相似之处，例如封装和继承。有Java基础后再看 JavaScript，发现这语言真灵活 &lt;del&gt;（语法稀烂）&lt;/del&gt;</summary>
     
     
     
@@ -80,10 +101,10 @@
     <link href="http://aotusoft.github.io/2023/11/19/JavaScript-I/"/>
     <id>http://aotusoft.github.io/2023/11/19/JavaScript-I/</id>
     <published>2023-11-19T03:01:40.000Z</published>
-    <updated>2023-11-22T11:19:49.264Z</updated>
+    <updated>2023-11-24T09:28:01.919Z</updated>
     
     
-    <summary type="html">~~JavaScript 从入门到放弃~~初探JavaScript，这篇文章记录了JavaScript其特点、作用、与Java的关系，深入研究组成部分、变量特性、丰富的数据类型等等等等以及对异步操作进行简单介绍</summary>
+    <summary type="html">&lt;del&gt;JavaScript 从入门到放弃&lt;/del&gt; 初探JavaScript，这篇文章记录了JavaScript其特点、作用、与Java的关系，深入研究组成部分、变量特性、丰富的数据类型等等等等以及对异步操作进行简单介绍</summary>
     
     
     

@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto Sans SC:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"aotusoft.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"right","width":320,"display":"post","padding":18,"offset":40},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="爆肝千字长文，详细整理Ajax由来、用法以及和jQuery结合用法。对了，还稍稍介绍了一下JSON">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript 从入门到放弃：Ajax">
+<meta property="og:url" content="http://aotusoft.github.io/2023/11/24/Ajax/index.html">
+<meta property="og:site_name" content="Hi, Onei">
+<meta property="og:description" content="爆肝千字长文，详细整理Ajax由来、用法以及和jQuery结合用法。对了，还稍稍介绍了一下JSON">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-11-24T09:30:40.000Z">
+<meta property="article:modified_time" content="2023-11-24T10:01:52.668Z">
+<meta property="article:author" content="Onei">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="Ajax">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://aotusoft.github.io/2023/11/24/Ajax/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>JavaScript 从入门到放弃：Ajax | Hi, Onei</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Hi, Onei" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta custom-logo">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hi, Onei</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <a>
+        <img class="custom-logo-image" src="/images/avatar.png" alt="Hi, Onei">
+      </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>抓到我</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>储物柜</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://aotusoft.github.io/2023/11/24/Ajax/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Onei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hi, Onei">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JavaScript 从入门到放弃：Ajax
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">产出于</span>
+              
+
+              <time title="创建时间：2023-11-24 17:30:40 / 修改时间：18:01:52" itemprop="dateCreated datePublished" datetime="2023-11-24T17:30:40+08:00">2023-11-24</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/WEB%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">WEB开发</span></a>
+                </span>
+            </span>
+
+          
+            <div class="post-description">爆肝千字长文，详细整理Ajax由来、用法以及和jQuery结合用法。对了，还稍稍介绍了一下JSON</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="🎿-AJAX"><a href="#🎿-AJAX" class="headerlink" title="🎿 AJAX"></a>🎿 AJAX</h1><ol>
+<li>AJAX(Asynchronous JavaScript and XML)异步的JavaScript和XML。</li>
+<li>AJAX不是新的编程语言，而是一种使用现有标准的新方法。</li>
+<li>AJAX最大的优点是在不重新加载整个页面的情况下，可以与服务器交换数<br>据并更新部分网页内容。</li>
+<li>AJAX可以使网页实现异步更新</li>
+<li>AJAX不需要任何浏览器插件，但需要用户允许JavaScript在浏览器上执行。</li>
+</ol>
+<blockquote>
+<p>AJAX 是与服务器交换数据并更新部分网页的艺术，在不重新加载整个页面的情况下</p>
+</blockquote>
+<h1 id="✨-特点"><a href="#✨-特点" class="headerlink" title="✨ 特点"></a>✨ 特点</h1><p>局部加载 异步更新</p>
+<blockquote>
+<p><strong>Google Suggest</strong></p>
+<p>在 2005 年，Google 通过其 Google Suggest 使 AJAX 变得流行起来。</p>
+<p>Google Suggest 使用 AJAX 创造出动态性极强的 web 界面：当您在谷歌的搜索框输入关键字时，JavaScript 会把这些字符发送到服务器，然后服务器会返回一个搜索建议的列表。</p>
+</blockquote>
+<h1 id="🏃‍♀️-过程"><a href="#🏃‍♀️-过程" class="headerlink" title="🏃‍♀️ 过程"></a>🏃‍♀️ 过程</h1><ul>
+<li>创建XMLHttpRequest对象 （IE5和IE6使用 <code>ActiveXObject</code>）<ul>
+<li><code>let xhr = new XMLHttpRequest();</code></li>
+</ul>
+</li>
+<li>配置请求地址 方式 是否异步<ul>
+<li><code>xhr.open(method,url,async)</code></li>
+</ul>
+</li>
+<li>发起请求<ul>
+<li><code>xhr.send()</code></li>
+</ul>
+</li>
+<li>服务器接收数据后进行判断</li>
+<li>向客户端返回数据</li>
+<li>客户端进行数据渲染</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>open(<em>method</em>,<em>url</em>,<em>async</em>)</td>
+<td>规定请求的类型、URL 以及是否异步处理请求。<li> _method_：请求的类型；<code>GET</code> 或 <code>POST</code> <li> _url_：文件在服务器上的位置 <li> _async_：<code>true</code>（异步）或 <code>false</code>（同步）</td>
+</tr>
+<tr>
+<td>send(<em>string</em>)</td>
+<td>将请求发送到服务器。 <li> _string_：仅用于 <code>POST</code> 请求</td>
+</tr>
+</tbody></table>
+<h1 id="🕰️-onreadystatechange-事件"><a href="#🕰️-onreadystatechange-事件" class="headerlink" title="🕰️ onreadystatechange 事件"></a>🕰️ <code>onreadystatechange</code> 事件</h1><p>每当 <code>readyState</code> 改变时，就会触发 <code>onreadystatechange</code> 事件。<br><code>readyState</code> 属性存有 <code>XMLHttpRequest</code> 的状态信息。</p>
+<h2 id="readyState"><a href="#readyState" class="headerlink" title="readyState"></a>readyState</h2><p>存有 XMLHttpRequest 的状态。从 0 到 4 发生变化。</p>
+<ul>
+<li>0: 请求未初始化</li>
+<li>1: 服务器连接已建立</li>
+<li>2: 请求已接收</li>
+<li>3: 请求处理中</li>
+<li>4: 请求已完成，且响应已就绪</li>
+</ul>
+<p>在 onreadystatechange 事件中，我们规定当服务器响应已做好被处理的准备时所执行的任务。<br>当 readyState 等于 4 且状态为 200 时，表示响应已就绪</p>
+<h1 id="🛠️-Callback-函数"><a href="#🛠️-Callback-函数" class="headerlink" title="🛠️ Callback 函数"></a>🛠️ Callback 函数</h1><p>callback 函数（回调函数）是一种以参数形式传递给另一个函数的函数。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">print</span>(<span class="params">callback</span>) &#123;  </span><br><span class="line">    <span class="title function_">callback</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">print</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;info&quot;</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h1 id="❓-GET还是POST？"><a href="#❓-GET还是POST？" class="headerlink" title="❓ GET还是POST？"></a>❓ GET还是POST？</h1><p>与POST相比，GET更简单也更快，并且在大部分情况下都能用。<br>然而，在以下情况中，应该使用POST请求：</p>
+<ol>
+<li>无法使用缓存文件（更新服务器上的文件或数据库）</li>
+<li>向服务器发送大量数据（POST没有数据量限制）</li>
+<li>发送包含未知字符的用户输入时，POST比GET更稳定也更可靠</li>
+</ol>
+<p>配置请求头</p>
+<ul>
+<li>application&#x2F;x-www-form-urlencoded 最早的post请求中，参数通过浏览器url传递，不支持文件上传</li>
+<li>multipart&#x2F;form-data：可上传文件，也可键值对</li>
+<li>application&#x2F;json json类型</li>
+<li>text&#x2F;xml XML类型</li>
+</ul>
+<p>xhr.send()</p>
+<h1 id="💑-AJAX-jQuery"><a href="#💑-AJAX-jQuery" class="headerlink" title="💑 AJAX&amp;jQuery"></a>💑 AJAX&amp;jQuery</h1><p><code>$(selector).load(URL,data,callback)</code></p>
+<ul>
+<li><strong>URL</strong> 必需 规定您希望加载的 URL</li>
+<li><strong>data</strong> 可选 规定与请求一同发送的查询字符串键值对集合</li>
+<li><strong>callback</strong> 可选 参数是 <code>load()</code> 方法完成后所执行的函数名称</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$(selector).<span class="title function_">load</span>(<span class="variable constant_">URL</span>, data, <span class="keyword">function</span> (<span class="params">data</span>) &#123;</span><br><span class="line"></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>只加载部分元素</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$(selector).<span class="title function_">load</span>(<span class="string">&quot;x.html #id&quot;</span>)</span><br><span class="line">$(selector).<span class="title function_">load</span>(<span class="string">&quot;x.html input&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h1 id="🥊-GET-vs-POST"><a href="#🥊-GET-vs-POST" class="headerlink" title="🥊 GET vs. POST"></a>🥊 GET vs. POST</h1><ul>
+<li><strong>GET</strong> - 从指定的资源请求数据</li>
+<li><strong>POST</strong> - 向指定的资源提文要处理的数据</li>
+</ul>
+<p>使用jQuery中的Ajax，其中回调函数中只会返回请求成功的值，如果要得到请求失败的返回值需要使用<code>$.ajax()</code>方法或原生Ajax</p>
+<h2 id="GET"><a href="#GET" class="headerlink" title="GET"></a>GET</h2><p><code>$.get(URL,callback)</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$.<span class="title function_">get</span>(<span class="variable constant_">URL</span>, <span class="keyword">function</span> (<span class="params">data, status</span>) &#123;</span><br><span class="line"></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>回调函数中的<code>data</code>为返回值中的<code>responseText</code><br><strong>外部无法访问回调函数中的值 异步</strong></p>
+<h2 id="POST"><a href="#POST" class="headerlink" title="POST"></a>POST</h2><p><code>$.post(URL,data,callback)</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$.<span class="title function_">post</span>(<span class="variable constant_">URL</span>, &#123;<span class="string">&#x27;a&#x27;</span>: <span class="number">1</span>, <span class="string">&#x27;b&#x27;</span>: <span class="number">2</span>&#125;, <span class="keyword">function</span> (<span class="params">data</span>) &#123;</span><br><span class="line"></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h1 id="🌦️-ajax"><a href="#🌦️-ajax" class="headerlink" title="🌦️ ajax()"></a>🌦️ ajax()</h1><p><code>$.ajax()</code> 方法通过 HTTP 请求加载远程数据。<br>该方法是 jQuery 底层 AJAX 实现。简单易用的高层实现可见 <code>$.get()</code>,<code>$.post()</code>等。$ajax() 返其创建的 XMLHttpRequest 对象。<br>大多数情况下无需直接使用该函数，除非需要操作不常用的选项，以获得更多的灵活性。<br>最简单的情况下，<code>$.ajax()</code>可以不带任何参数直接使用。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$.<span class="title function_">ajax</span>(&#123;</span><br><span class="line">    <span class="attr">url</span>: <span class="string">&#x27;text.txt&#x27;</span>,</span><br><span class="line">    <span class="attr">type</span>: <span class="string">&#x27;POST&#x27;</span>,</span><br><span class="line">    <span class="attr">async</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">data</span>: &#123;<span class="string">&#x27;a&#x27;</span>: <span class="number">1</span>, <span class="string">&#x27;b&#x27;</span>: <span class="number">2</span>&#125;,</span><br><span class="line">    <span class="attr">success</span>: <span class="keyword">function</span> (<span class="params">data</span>) &#123;</span><br><span class="line"></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">error</span>: <span class="keyword">function</span> (<span class="params">data</span>) &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h1 id="🥖-JSON"><a href="#🥖-JSON" class="headerlink" title="🥖 JSON"></a>🥖 JSON</h1><p>JSON: JavaScript Object Notation(JavaScript 对象表示法)</p>
+<ul>
+<li>JSON 是存储和交换文本信息的语法。类似 XML。</li>
+<li>JSON 比 XML 更小、更快，更易解析。</li>
+<li>JSON 是轻量级的文本数据交换格式</li>
+<li>JSON 独立于语言：JSON 使用 Javascript语法来描述数据对象，但是 JSON 仍然独立于语言和平台。JSON 解析器和 JSON 库支持许多不同的编程语言。 目前非常多的动态（PHP，JSP，.NET）编程语言都支持JSON。</li>
+<li>JSON 具有自我描述性，更易理解</li>
+</ul>
+<h1 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h1><p>JSON 语法是 JavaScript 对象表示语法的子集。</p>
+<p>数据在名称&#x2F;值对中、数据由逗号分隔、大括号保存对象、中括号保存数组。<br>名称&#x2F;值对包括字段名称（在双引号中），后面写一个冒号，然后是值</p>
+<p>JSON 值可以是：数字（整数或浮点数）、字符串（在双引号中）、逻辑值（true 或 false）、数组（在中括号中）、对象（在大括号中）、null</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">    <span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;abc&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;age&#x27;</span>: <span class="number">18</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="JSON-数组"><a href="#JSON-数组" class="headerlink" title="JSON 数组"></a>JSON 数组</h2><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span> </span><br><span class="line">  <span class="attr">&quot;sites&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span> </span><br><span class="line">    <span class="punctuation">&#123;</span> <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span><span class="string">&quot;菜鸟教程&quot;</span> <span class="punctuation">,</span> <span class="attr">&quot;url&quot;</span><span class="punctuation">:</span><span class="string">&quot;www.runoob.com&quot;</span> <span class="punctuation">&#125;</span><span class="punctuation">,</span> </span><br><span class="line">    <span class="punctuation">&#123;</span> <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span><span class="string">&quot;google&quot;</span> <span class="punctuation">,</span> <span class="attr">&quot;url&quot;</span><span class="punctuation">:</span><span class="string">&quot;www.google.com&quot;</span> <span class="punctuation">&#125;</span><span class="punctuation">,</span> </span><br><span class="line">    <span class="punctuation">&#123;</span> <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span><span class="string">&quot;微博&quot;</span> <span class="punctuation">,</span> <span class="attr">&quot;url&quot;</span><span class="punctuation">:</span><span class="string">&quot;www.weibo.com&quot;</span> <span class="punctuation">&#125;</span> </span><br><span class="line">  <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="JSON-对象"><a href="#JSON-对象" class="headerlink" title="JSON 对象"></a>JSON 对象</h1><ul>
+<li>JSON 对象使用在大括号<code>&#123;&#125;</code>中书写</li>
+<li>对象可以包含多个 <code>key/value</code> 对</li>
+<li><code>key</code> 必须是字符串，<code>value</code> 可以是合法的 JSON 数据类型（字符串, 数字, 对象, 数组, 布尔值或 null）。</li>
+<li><code>key</code> 和 <code>value</code> 中使用<code>:</code>分割</li>
+<li>每个 <code>key/value</code> 对使用<code>,</code>分割</li>
+<li>可以使用<code>.</code>来访问对象的值</li>
+<li>也可以使用<code>[]</code>来访问对象的值</li>
+</ul>
+<h2 id="转换"><a href="#转换" class="headerlink" title="转换"></a>转换</h2><ul>
+<li><code>let string = JSON.stringify(json)</code><br>JSON对象转换为字符串</li>
+<li><code>let json = JSON.parse(string)</code><br>字符串转换为JSON对象</li>
+</ul>
+<p><code>eval()</code> 一般用于将数组格式的json字符串转换为数组json对象<br>也可以进行运算 <code>eval(&quot;1+8&quot;)</code></p>
+<h1 id="JSONP"><a href="#JSONP" class="headerlink" title="JSONP"></a>JSONP</h1><p>Jsonp(JSON with Padding) 是 json 的一种”使用模式”，可以让网页从别的域名（网站）那获取资料，即跨域读取数据。<br>为什么我们从不同的域（网站）访问数据需要一个特殊的技术( JSONP )呢？这是因为同源策略。<br>同源策略，它是由 Netscape 提出的一个著名的安全策略，现在所有支持 JavaScript 的浏览器都会使用这个策略。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+              <a href="/tags/Ajax/" rel="tag"># Ajax</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/11/23/Framework/" rel="prev" title="JavaScript 从入门到放弃：框架其实很简单">
+      <i class="fa fa-chevron-left"></i> JavaScript 从入门到放弃：框架其实很简单
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%F0%9F%8E%BF-AJAX"><span class="nav-number">1.</span> <span class="nav-text">🎿 AJAX</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E2%9C%A8-%E7%89%B9%E7%82%B9"><span class="nav-number">2.</span> <span class="nav-text">✨ 特点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%F0%9F%8F%83%E2%80%8D%E2%99%80%EF%B8%8F-%E8%BF%87%E7%A8%8B"><span class="nav-number">3.</span> <span class="nav-text">🏃‍♀️ 过程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%F0%9F%95%B0%EF%B8%8F-onreadystatechange-%E4%BA%8B%E4%BB%B6"><span class="nav-number">4.</span> <span class="nav-text">🕰️ onreadystatechange 事件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#readyState"><span class="nav-number">4.1.</span> <span class="nav-text">readyState</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%F0%9F%9B%A0%EF%B8%8F-Callback-%E5%87%BD%E6%95%B0"><span class="nav-number">5.</span> <span class="nav-text">🛠️ Callback 函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E2%9D%93-GET%E8%BF%98%E6%98%AFPOST%EF%BC%9F"><span class="nav-number">6.</span> <span class="nav-text">❓ GET还是POST？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%F0%9F%92%91-AJAX-jQuery"><span class="nav-number">7.</span> <span class="nav-text">💑 AJAX&amp;jQuery</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%F0%9F%A5%8A-GET-vs-POST"><span class="nav-number">8.</span> <span class="nav-text">🥊 GET vs. POST</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#GET"><span class="nav-number">8.1.</span> <span class="nav-text">GET</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#POST"><span class="nav-number">8.2.</span> <span class="nav-text">POST</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%F0%9F%8C%A6%EF%B8%8F-ajax"><span class="nav-number">9.</span> <span class="nav-text">🌦️ ajax()</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%F0%9F%A5%96-JSON"><span class="nav-number">10.</span> <span class="nav-text">🥖 JSON</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%AD%E6%B3%95"><span class="nav-number">11.</span> <span class="nav-text">语法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JSON-%E6%95%B0%E7%BB%84"><span class="nav-number">11.1.</span> <span class="nav-text">JSON 数组</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JSON-%E5%AF%B9%E8%B1%A1"><span class="nav-number">12.</span> <span class="nav-text">JSON 对象</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%AC%E6%8D%A2"><span class="nav-number">12.1.</span> <span class="nav-text">转换</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JSONP"><span class="nav-number">13.</span> <span class="nav-text">JSONP</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Onei"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Onei</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Onei</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
